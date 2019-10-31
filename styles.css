@@ -1,0 +1,147 @@
+body {
+    height: 100%;
+    margin: 0;
+    font-family: Montserrat;
+}
+
+img {
+    width: 100vw;
+    height: 500px;
+}
+
+.image-container {
+    position: relative;
+    text-align: center;
+}
+
+.image-container .after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: #1246536e;
+    color: white;
+}
+
+.rectangle {
+    border-style: solid;
+    border-width: 8px;
+    width: 40%;
+    height: 50%;
+    margin-left: 30%;
+    margin-top: 8%;
+    border-color: rgba(252, 118, 106, 0.712);
+}
+
+h1 {
+    margin-left: 23%;
+    margin-top: 12%;
+    font-size: 5em;
+    position: absolute;
+}
+
+.date {
+    margin-left: 39%;
+    margin-top: 20%;
+    font-size: 3em;
+    position: absolute;
+}
+
+.edit {
+    background-color: #fc766aff;
+    font-family: Montserrat;
+    padding: 15px;
+    border: 0;
+    border-radius: 3px;
+    margin-top: 2%;
+    font-size: 1em;
+}
+
+.text {
+    padding: 5%;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.description {
+    padding: 5%;
+    padding-bottom: 0;
+}
+
+.tags {
+    padding: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    color: gray;
+}
+
+hr {
+    margin-bottom: 0;
+}
+
+h3 {
+    font-size: 2em;
+}
+
+.comments {
+    text-align: center;
+    background-color: #00a08f;
+    padding-top: 0.5%;
+}
+
+.comment {
+    background-color: white;
+    width: 80.5vw;
+    height: 50px;
+    margin-bottom: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 25px;
+
+}
+
+.comminput {
+    width: 80vw;
+    height: 50px;
+    margin-bottom: 1%;
+    padding-left: 13px;
+}
+
+.submit {
+    margin-left: 75%;
+    margin-bottom: 3%;
+    background-color: #fee074;
+    font-family: Montserrat;
+    padding: 10px;
+    border: 0;
+    border-radius: 3px;
+    font-size: 1em;
+}
+
+.home {
+    background-color: #fc766aff;
+    font-family: Montserrat;
+    padding: 10px;
+    border: 0;
+    border-radius: 3px;
+    font-size: 1em;
+    margin: 0;
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.login {
+    margin: 0;
+    background-color: #fc766aff;
+    font-family: Montserrat;
+    padding: 10px;
+    border: 0;
+    border-radius: 3px;
+    font-size: 1em;
+    float: right;
+    margin-right: 20px;
+    margin-top: 20px;
+}
