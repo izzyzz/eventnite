@@ -277,6 +277,10 @@ h3 {
     padding: 10px;
 }
 
+.createaccount {
+    width: 150px;
+}
+
 /* create event styles */
 .createcontainer {
     background-color: white;
