@@ -1,2 +1,7 @@
 {
+  "users": {
+    "test": {
+      "passwordHash": "$2a$10$xdRJAf/wqvQWwB9dSMqLR.mxNkKkpsMiG8fB6jQpfYsxHD08eIVSK"
+    }
+  }
 }

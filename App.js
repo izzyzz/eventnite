@@ -1,3 +1,10 @@
+import setToken from "./config/Token.js";
+import getAxiosInstance from "./config/Axios.js";
+
+// const axios = getAxiosInstance('/account');
+console.log("hi");
+const axios = getAxiosInstance('/account');
+
 function loadCreateAccount() {
     let target = $(this).parent();
     target.replaceWith(`<div class="logincontainer">
@@ -34,8 +41,6 @@ async function createAccount() {
 
 
     return true;
-
-
 }
 
 // export async function getStatus() {
