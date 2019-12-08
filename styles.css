@@ -1,17 +1,170 @@
 body {
-    height: 100%;
-    margin: 0;
-    font-family: Montserrat;
+    height: 100vh;
+    margin: 0px;
+    padding: 0px;
+    background-color: #124653;
+    font-family: 'Montserrat', sans-serif;
 }
 
+.page-body {
+    background-color: white;
+}
+
+h1 {
+    color: white;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 75px;
+    letter-spacing: 10px;
+    font-size: 3.5em;
+}
+
+#maintitle,
+.title {
+    clear: right;
+}
+
+#signintitle,
+.title {
+    clear: left;
+}
+
+#eventtitle {
+    top: 25%;
+    position: absolute;
+    z-index: 2;
+}
+
+hr {
+    width: 75%;
+    border: 1px solid #fc766aff;
+    margin: 0px auto;
+
+}
+
+.button,
+input[type="submit"] {
+    background-color: #fc766aff;
+    text-decoration: none;
+    border: none;
+    color: white;
+    width: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login {
+    float: right;
+    margin-right: 20px;
+}
+
+.home {
+    float: left;
+    margin-left: 20px;
+}
+
+.edit,
+.newevent {
+
+    margin-top: 20px;
+    display: block;
+    margin: auto;
+    width: 150px;
+}
+
+.button:hover,
+input[type="submit"]:hover {
+    background-color: rgb(226, 80, 67);
+}
+
+/* hompage styles */
+
+.searchcontainer {
+    width: 430px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.searchcontainer+.searchcontainer {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.search {
+    height: 38px;
+    width: 300px;
+    padding-left: 20px;
+    border: 1px solid #124653;
+    font-size: 14px;
+}
+
+h4 {
+    color: white;
+    margin: 0px;
+}
+
+.container {
+    width: 980px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    background-color: #124653;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.container>.event {
+    background-color: white;
+    height: 333px;
+    box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.event:hover {
+    box-shadow: 5px 5px 7px 0px rgba(0, 0, 0, 0.7);
+}
+
+.image {
+    width: 100%;
+    height: 70%;
+    background-image: url("https://assets.simpleviewinc.com/simpleview/image/upload/c_limit,h_1200,q_75,w_1200/v1/clients/irving-redesign/Events_Page_Header_2903ed9c-40c1-4f6c-9a69-70bb8415295b.jpg");
+    background-size: cover;
+}
+
+.event hr {
+    border: 0.2px solid #fc766aff;
+}
+
+.event h2 {
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 5px;
+    margin-top: 0px;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.event .date {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+/* eventpage styles */
 img {
-    width: 100vw;
+    width: 100%;
     height: 500px;
 }
 
 .image-container {
     position: relative;
     text-align: center;
+    margin: 0px;
 }
 
 .image-container .after {
@@ -21,53 +174,43 @@ img {
     width: 100%;
     height: 100%;
     display: block;
-    background: #1246536e;
+    background: #12465346;
     color: white;
 }
 
 .rectangle {
-    border-style: solid;
-    border-width: 8px;
+    border: 3px solid rgba(252, 118, 106);
     width: 40%;
     height: 50%;
-    margin-left: 30%;
-    margin-top: 8%;
-    border-color: rgba(252, 118, 106, 0.712);
+    position: relative;
+    margin: auto;
+    margin-top: 15vh;
+    margin-bottom: 30px;
 }
 
-h1 {
-    margin-left: 23%;
-    margin-top: 12%;
-    font-size: 5em;
+.datetitle {
+    font-size: 2.5em;
     position: absolute;
+    text-align: center;
+    width: 100%;
+    top: 48%;
+    z-index: 2;
 }
 
-.date {
-    margin-left: 39%;
-    margin-top: 20%;
-    font-size: 3em;
-    position: absolute;
+.descriptioncontainer {
+    background-color: white;
+    margin: 0px;
 }
 
-.edit {
-    background-color: #fc766aff;
-    font-family: Montserrat;
-    padding: 15px;
-    border: 0;
-    border-radius: 3px;
-    margin-top: 2%;
-    font-size: 1em;
+.description {
+    padding: 5%;
+    padding-bottom: 0;
 }
 
 .text {
     padding: 5%;
     padding-bottom: 0;
     padding-top: 0;
-}
-
-.description {
-    padding: 5%;
-    padding-bottom: 0;
 }
 
 .tags {
@@ -77,33 +220,31 @@ h1 {
     color: gray;
 }
 
-hr {
-    margin-bottom: 0;
-}
-
 h3 {
     font-size: 2em;
 }
 
 .comments {
     text-align: center;
-    background-color: #00a08f;
     padding-top: 0.5%;
 }
 
 .comment {
     background-color: white;
-    width: 80.5vw;
-    height: 50px;
-    margin-bottom: 1px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 25px;
+    width: 80%;
+    text-align: left;
+    margin: auto;
+    padding: 20px 20px;
+    border: 1px solid lightgray;
 
 }
 
+.comment:hover {
+    background-color: lightgray;
+}
+
 .comminput {
-    width: 80vw;
+    width: 80%;
     height: 50px;
     margin-bottom: 1%;
     padding-left: 13px;
@@ -112,36 +253,69 @@ h3 {
 .submit {
     margin-left: 75%;
     margin-bottom: 3%;
-    background-color: #fee074;
-    font-family: Montserrat;
-    padding: 10px;
-    border: 0;
-    border-radius: 3px;
-    font-size: 1em;
 }
 
-.home {
-    background-color: #fc766aff;
-    font-family: Montserrat;
-    padding: 10px;
-    border: 0;
+/* signin styles */
+.logincontainer {
+    background-color: white;
+    width: 30%;
+    margin: auto;
+    margin-top: 50px;
     border-radius: 3px;
-    font-size: 1em;
-    margin: 0;
-    float: left;
-    margin-left: 20px;
-    margin-top: 20px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.login {
-    margin: 0;
-    background-color: #fc766aff;
+.logincontainer input {
+    width: 60%;
+    height: 10px;
     font-family: Montserrat;
+    font-size: 12px;
     padding: 10px;
-    border: 0;
+}
+
+/* create event styles */
+.createcontainer {
+    background-color: white;
+    width: 50%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 100px;
     border-radius: 3px;
-    font-size: 1em;
-    float: right;
-    margin-right: 20px;
-    margin-top: 20px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.eventtitleinput {
+    font-size: 0.5em;
+    height: 70px;
+    width: 60%;
+    font-family: Montserrat;
+    text-align: center;
+}
+
+.backgroundimage {
+    font-family: Montserrat;
+    font-size: 12px;
+}
+
+.descriptioninput {
+    width: 80%;
+    height: 200px;
+    font-family: Montserrat;
+    font-size: 12px;
+    border: 1px solid #124653;
+    padding: 15px;
+}
+
+.tagadd {
+    margin-top: 0px;
+    margin-bottom: 30px;
 }
