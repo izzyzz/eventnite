@@ -131,18 +131,19 @@ let debounce = function (f, delay, now) {
 let searchevents = debounce(function () {
     let searchinput = $(this).val();
     let resultlist = $(this).parent().find(".results");
+    let finallist = "";
     getResults(searchinput).then((results) => {
         if (results.length == 0) {
             resultlist.replaceWith(`<ul class='results'><li>No Matches</li></ul>`);
         } else if (results == "none") {
             resultlist.replaceWith(`<ul class='results'></ul>`);
         } else {
-            let finallist =
-                results.forEach((result) => {
-
-                    resultlist.append(`<li>${result}</li>`);
-                })
+            results.forEach((result) => {
+                finallist += `<li class=${result}>${result}</li>`;
+            })
+            resultlist.replaceWith(`<ul class='results'>${finallist}</ul>`);
         }
+
     });
 
 }, 200);
@@ -171,13 +172,6 @@ async function createEvent() {
     let description = container.find('.descriptioninput').val();
 }
 
-async function test() {
-    let results = await axios({
-        method: 'GET',
-        url: "http://localhost:3000/public/events/",
-    })
-    console.log(results);
-}
 
 async function test() {
     let jwt = window.localStorage.getItem("jwt");
@@ -199,6 +193,20 @@ async function test2() {
     console.log(results);
 }
 
+async function getEvent() {
+    let name = $("li").text();
+    let jwt = window.localStorage.getItem("jwt");
+    if ()
+        let results = await axios({
+            method: 'GET',
+            url: `http://localhost:3000/private/events/${name}`,
+            headers: {
+                "Authorization": "Bearer " + jwt
+            },
+        })
+    console.log(results);
+}
+
 window.onload = function () {
     $(document).on("click", ".newuser", loadCreateAccount);
     $(document).on("click", ".createaccount", createAccount);
@@ -210,6 +218,7 @@ window.onload = function () {
     $(document).on("input", ".searchevents", searchevents);
     $(document).on("click", "#signintitle", test);
     $(document).on("click", "#maintitle", test);
+    $(document).on("click", ".results", getEvent);
     checkLoggedIn();
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {
