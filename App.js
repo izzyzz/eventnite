@@ -143,7 +143,6 @@ let searchevents = debounce(function () {
             })
             resultlist.replaceWith(`<ul class='results'>${finallist}</ul>`);
         }
-
     });
 
 }, 200);
@@ -217,6 +216,64 @@ function previewImage() {
 
 }
 
+
+async function test() {
+    let jwt = window.localStorage.getItem("jwt");
+    let results = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/private/events/",
+        headers: {
+            "Authorization": "Bearer " + jwt
+        },
+    })
+    console.log(results);
+}
+async function test2() {
+    let results = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/public/events/",
+
+    })
+    console.log(results);
+}
+
+async function getEvent() {
+    let name = $(this).text();
+
+    let jwt = window.localStorage.getItem("jwt");
+    let loggedin = window.localStorage.getItem("loggedin");
+    if (loggedin == "true") {
+        let results = await axios({
+            method: 'GET',
+            url: `http://localhost:3000/public/events/${name}`,
+
+        })
+
+        window.localStorage.setItem("title", name);
+        window.localStorage.setItem("desc", results.data.result.description);
+        window.location.replace("page.html");
+    } else {
+        let results = await axios({
+            method: 'GET',
+            url: `http://localhost:3000/public/events/${name}`,
+        })
+        window.localStorage.setItem("title", name);
+        window.localStorage.setItem("desc", results.data.result.description);
+
+        window.location.replace("page.html");
+
+    }
+
+}
+
+function renderPage() {
+    let name = window.localStorage.getItem("title")
+    let desc = window.localStorage.getItem("desc")
+    $("#eventtitle").html(`${name}`)
+    $(".description").html(`${desc}`)
+}
+
+
 window.onload = function () {
     $(document).on("click", ".newuser", loadCreateAccount);
     $(document).on("click", ".createaccount", createAccount);
@@ -227,6 +284,8 @@ window.onload = function () {
     $(document).on("click", ".newevent", createEvent);
     $(document).on("input", ".searchevents", searchevents);
     $(document).on("change", ".backgroundimage", previewImage);
+    $(document).on("click", "li", getEvent);
+    renderPage()
     checkLoggedIn();
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {
