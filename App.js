@@ -152,6 +152,26 @@ async function checkLoggedIn() {
 //     }
 // }
 
+async function test() {
+    let jwt = window.localStorage.getItem("jwt");
+    let results = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/private/events/",
+        headers: {
+            "Authorization": "Bearer " + jwt
+        },
+    })
+    console.log(results);
+}
+async function test2() {
+    let results = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/public/events/",
+
+    })
+    console.log(results);
+}
+
 window.onload = function () {
     $(document).on("click", ".newuser", loadCreateAccount);
     $(document).on("click", ".createaccount", createAccount);
@@ -159,6 +179,7 @@ window.onload = function () {
     $(document).on("click", ".loginsubmit", login);
     $(document).on("click", "#signintitle", checkLoggedIn);
     $(document).on("click", ".logout", logout);
+    $(document).on("click", "#maintitle", test);
     checkLoggedIn();
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {
