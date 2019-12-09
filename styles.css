@@ -215,11 +215,11 @@ img {
     padding-top: 0;
 }
 
-.tags {
+/* .tags {
     padding: 5%;
     padding-top: 3%;
     padding-bottom: 3%;
-    color: gray;
+    color: gray; */
 }
 
 h3 {
@@ -315,6 +315,15 @@ h3 {
     font-size: 12px;
 }
 
+.addressinput {
+    width: 80%;
+    height: 30px;
+    font-family: Montserrat;
+    font-size: 12px;
+    border: 1px solid #124653;
+    padding: 15px;
+}
+
 .descriptioninput {
     width: 80%;
     height: 200px;
@@ -324,10 +333,10 @@ h3 {
     padding: 15px;
 }
 
-.tagadd {
+/* .tagadd {
     margin-top: 0px;
     margin-bottom: 30px;
-}
+} */
 
 .radiocontainer {
     display: inline;
