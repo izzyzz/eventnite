@@ -17,6 +17,9 @@
     },
     "izzy": {
       "passwordHash": "$2a$10$qojriV/n1xqoMn2V2yJWfOpbhfKpNA98jnxTQB2BFjBPoM6YbPFVe"
+    },
+    "hannahtest": {
+      "passwordHash": "$2a$10$fVYEbtMa0ToLVzJfktCR6OvHxEd8d1b1BKpoj8vVqPRqB4wxz2Fje"
     }
   }
 }

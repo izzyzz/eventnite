@@ -31,42 +31,6 @@ function backtoLogin() {
     </div>`)
 }
 
-function renderIndex(loggedin) {
-    if (loggedin) {
-        $("#indexboy").replaceWith(`<a class="account button" href="login.html">ACCOUNT</a>
-        <h1 id="maintitle">EVENTNITE</h1>
-        <hr>
-        <div class="searchcontainer">
-            <input class="search" type="text" placeholder="Search Events">
-            <button class="button" type="submit"><i class="fa fa-search"></i></button>
-        </div>
-        <div class="searchcontainer">
-            <h4>Filter by Tags</h4>
-            <input class="search" type="text" placeholder="Search Tags">
-            <button class="button" type="submit"><i class="fa fa-search"></i></button>
-        </div>
-        <a class="newevent button" href="newevent.html">CREATE EVENT</a>
-        <div class="container">
-        </div>`);
-    } else {
-        $("#indexbody").replaceWith(`<a class="login button" href="login.html">LOGIN</a>
-        <h1 id="maintitle">EVENTNITE</h1>
-        <hr>
-        <div class="searchcontainer">
-            <input class="search" type="text" placeholder="Search Events">
-            <button class="button" type="submit"><i class="fa fa-search"></i></button>
-        </div>
-        <div class="searchcontainer">
-            <h4>Filter by Tags</h4>
-            <input class="search" type="text" placeholder="Search Tags">
-            <button class="button" type="submit"><i class="fa fa-search"></i></button>
-        </div>
-        <a class="newevent button" href="newevent.html">CREATE EVENT</a>
-        <div class="container">
-        </div>`)
-    }
-}
-
 function logout() {
     window.localStorage.removeItem("jwt");
 }
@@ -144,13 +108,76 @@ async function checkLoggedIn() {
     }
 }
 
-// export async function getStatus() {
-//     try {
-//         return (await axios.get(`\status`)).data;
-//     } catch (error) {
-//         return false
-//     }
-// }
+let debounce = function (f, delay, now) {
+    let timeout;
+    return function () {
+        let context = this;
+        let later = function () {
+            timeout = null;
+            if (!now) {
+                f.apply(context);
+            }
+        }
+        let call = now && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, delay);
+        if (call) {
+            f.apply(context);
+        }
+    }
+
+}
+
+let searchevents = debounce(function () {
+    let searchinput = $(this).val();
+    let resultlist = $(this).parent().find(".results");
+    getResults(searchinput).then((results) => {
+        if (results.length == 0) {
+            resultlist.replaceWith(`<ul class='results'><li>No Matches</li></ul>`);
+        } else if (results == "none") {
+            resultlist.replaceWith(`<ul class='results'></ul>`);
+        } else {
+            let finallist =
+                results.forEach((result) => {
+
+                    resultlist.append(`<li>${result}</li>`);
+                })
+        }
+    });
+
+}, 200);
+
+async function getResults(searchinput) {
+    let values = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/public/events/",
+    })
+    if (searchinput != "") {
+        let valuesarr = values.data.result;
+        let searchprefix = new RegExp('^' + searchinput, 'i');
+        let matches = valuesarr.filter((value) => searchprefix.test(value.toLowerCase()));
+        return matches;
+    } else {
+        return "none";
+    }
+
+}
+
+async function createEvent() {
+    let container = $(this).parent();
+    let body = $(this).parent().parent();
+    let title = body.find('.title').val();
+    let image = container.find('.backgroundimage').val();
+    let description = container.find('.descriptioninput').val();
+}
+
+async function test() {
+    let results = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/public/events/",
+    })
+    console.log(results);
+}
 
 window.onload = function () {
     $(document).on("click", ".newuser", loadCreateAccount);
@@ -159,6 +186,9 @@ window.onload = function () {
     $(document).on("click", ".loginsubmit", login);
     $(document).on("click", "#signintitle", checkLoggedIn);
     $(document).on("click", ".logout", logout);
+    $(document).on("click", ".newevent", createEvent);
+    $(document).on("input", ".searchevents", searchevents);
+    $(document).on("click", "#signintitle", test);
     checkLoggedIn();
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {
