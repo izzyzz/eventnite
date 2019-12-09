@@ -47,3 +47,7 @@ router.delete('/*', parseDelete, function (req, res) {
     })
   }
 });
+
+router.get('/events', parseGet, function (req, res) {
+  res.send(publicStore.get(`events`));
+})

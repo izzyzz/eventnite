@@ -1,2 +1,6 @@
 {
+    "events": {
+        "Private event 1": {},
+        "Private event 2": {}
+    }
 }
