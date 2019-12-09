@@ -51,3 +51,28 @@ router.delete('/*', parseDelete, function (req, res) {
 router.get('/events', parseGet, function (req, res) {
   res.send(publicStore.get(`events`));
 })
+
+router.post('/events/create', function (req, res) {
+  const name = req.body.name.toLowerCase();
+
+  let event = publicStore.get(`events.${name}`);
+  if (event) {
+    res.status(401).send({ msg: `Event '${req.body.name}' has already been created.` });
+    return;
+  }
+
+  publicStore.set(`events.${name}`, {
+    datestart: dates,
+    dateend: datee,
+    image: img,
+    address: addy,
+    description: desc,
+    comments: []
+  })
+
+});
+
+
+router.get('/events/*', parseGet, function (req, res) {
+  res.send(publicStore.get(`events/*`));
+})
