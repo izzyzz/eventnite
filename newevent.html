@@ -19,10 +19,16 @@
     <div class="createcontainer">
         <p class=>Upload a Cover Image for Your Event</p>
         <input type="file" class="backgroundimage" accept="image/*">
+        <br>
+        <p class="default">Default Image</p>
+        <img src="" id="" class="imagepreview" alt="Image Preview">
         <p>Describe Your Event!</p>
         <div class="radiocontainer">
             <input type="radio" class="radio" name="type" value="public" checked>Public
             <input type="radio" class="radio" name="type" value="private">Private
+        </div>
+        <br>
+        <div class="dateinput"><input type="date" class="datestart"> to <input type="date" class="dateend">
         </div>
         <br>
         <input type="text" class="addressinput" placeholder="Where is your event? (Please input a valid address)">

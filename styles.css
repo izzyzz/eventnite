@@ -102,12 +102,15 @@ input[type="submit"]:hover {
     border: 1px solid #124653;
     font-size: 14px;
 }
-.tagbtn, .searchbtn {
+
+.tagbtn,
+.searchbtn {
     display: inline;
     background-color: #fc766aff;
     padding: 10px;
     margin: 0;
 }
+
 h4 {
     color: white;
     margin: 0px;
@@ -320,6 +323,13 @@ h3 {
     font-size: 12px;
 }
 
+.dateinput * {
+    border: 1px solid #124653;
+    font-family: Montserrat;
+    height: 30px;
+    margin: 10px;
+}
+
 .addressinput {
     width: 80%;
     height: 30px;
@@ -348,17 +358,25 @@ h3 {
     font-size: 15px;
 }
 
+.imagepreview {
+    width: 80%;
+    border: 1px solid #124653;
+    text-align: center;
+    height: 250px;
+}
+
 .results * {
     background-color: white;
     margin: 0;
     padding: 3%;
-    list-style:none;
+    list-style: none;
     width: 76.3%;
 }
 
 .results {
     margin: 0;
 }
+
 .results *:hover {
     background-color: rgb(192, 192, 192);
 }
