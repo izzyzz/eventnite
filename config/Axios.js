@@ -1,4 +1,4 @@
-import axios from "/node_modules/axios/index.js";
+import axios from "/axios";
 import {
   getToken
 } from "./Token.js";
