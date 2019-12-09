@@ -131,18 +131,19 @@ let debounce = function (f, delay, now) {
 let searchevents = debounce(function () {
     let searchinput = $(this).val();
     let resultlist = $(this).parent().find(".results");
+    let finallist = "";
     getResults(searchinput).then((results) => {
         if (results.length == 0) {
             resultlist.replaceWith(`<ul class='results'><li>No Matches</li></ul>`);
         } else if (results == "none") {
             resultlist.replaceWith(`<ul class='results'></ul>`);
         } else {
-            let finallist =
-                results.forEach((result) => {
-
-                    resultlist.append(`<li>${result}</li>`);
-                })
+            results.forEach((result) => {
+                finallist += `<li class=${result}>${result}</li>`;
+            })
+            resultlist.replaceWith(`<ul class='results'>${finallist}</ul>`);
         }
+
     });
 
 }, 200);
@@ -196,7 +197,6 @@ window.onload = function () {
     $(document).on("click", ".logout", logout);
     $(document).on("click", ".newevent", createEvent);
     $(document).on("input", ".searchevents", searchevents);
-    $(document).on("input", ".searchtags", searchtags);
     checkLoggedIn();
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {
