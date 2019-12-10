@@ -1,0 +1,33 @@
+<!DOCTYPE html style="background-color: #124653">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=5.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <title>EventNite My Calendar</title>
+</head>
+
+<body>
+    <a class="home button" href="index.html">HOME</a>
+    <a class="logout button" href="login.html">LOGOUT</a>
+    <h1 class="title">MY EVENTS</h1>
+    <hr>
+    <div class="event-container">
+        <div class="event-card">
+            <div class="event-head">Private Event 1: Nov 01, 2020-Nov 02, 2021</div>
+            <div class="event-notes">Bring dessert <br><button class="editnotes button">EDIT NOTES</button></div>
+        </div>
+        <div class="event-card">
+            <div class="event-head"><b>Private Event 1:</b> Nov 01, 2020-Nov 02, 2021</div>
+            <div class="event-notes">Bring dessert <br><button class="editnotes button">EDIT NOTES</button></div>
+        </div>
+    </div>
+
+    <script type="module" src="App.js"></script>
+    <script src="node_modules/axios/dist/axios.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</body>
+
+</html>

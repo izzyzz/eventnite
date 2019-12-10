@@ -334,6 +334,14 @@ async function renderPage() {
             }
         }
 
+        // window.localStorage.setItem("title", name);
+        // window.localStorage.setItem("desc", results.data.result.description);
+        // window.localStorage.setItem("startdate", results.data.result.datestart);
+        // window.localStorage.setItem("enddate", results.data.result.dateend);
+        // window.localStorage.setItem("pic", results.data.image);
+        // window.localStorage.setItem("addy", results.data.address);
+
+        window.location.replace("page.html");
     } else {
         let results = await axios({
             method: 'GET',
@@ -360,6 +368,7 @@ async function renderPage() {
 }
 
 async function renderEvents() {
+
     let jwt = window.localStorage.getItem("jwt");
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {
@@ -372,24 +381,27 @@ async function renderEvents() {
         })
         results.data.result.forEach((result) => {
             $(".container").append(`<div class="event">
-        <div class="image"></div>
+        <div class="image"><img src=${result.image}></div>
         <h2 class="title">${result}</h2>
         <hr></hr>
         <p class="date">Jan 21st 8am - Jan 21st 9am</p>
     </div>`)
         })
+
     } else {
         let results = await axios({
             method: 'GET',
             url: `http://localhost:3000/public/events/`,
         })
+        let img = results.data;
         results.data.result.forEach((result) => {
             $(".container").append(`<div class="event">
         <div class="image"></div>
         <h2 class="title">${result}</h2>
         <hr></hr>
-        <p class="date">Jan 21st 8am - Jan 21st 9am</p>
+        <p class="date">${result}</p>
     </div>`)
+            console.log(img)
         })
     }
 

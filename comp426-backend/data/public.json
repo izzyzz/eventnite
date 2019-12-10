@@ -1,4 +1,18 @@
 {
+<<<<<<< HEAD
+    "events": {
+        "Food Drive": {
+            "title": "Food Drive",
+            "datestart": "2020-01-04",
+            "dateend": "2020-01-11",
+            "image": "https://www.moveforhunger.org/wp-content/uploads/UniversityMovingAndStorage_FarmingtonHillsFoodDrive2016-1.jpg",
+            "address": "209 South Rd, Chapel Hill, NC 27599",
+            "description": "Bring food to donate to the homeless shelter.",
+            "p": "public",
+            "comments": []
+        }
+    }
+=======
   "events": {
     "Public Event 1": {
       "title": "Public Event 1",
@@ -24,4 +38,5 @@
       "comments": []
     }
   }
+>>>>>>> 06fe174ceb9ecc99192d0444453343b01f770f32
 }
