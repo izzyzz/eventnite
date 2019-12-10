@@ -5,6 +5,12 @@
       "data": {
         "usercreated": 4
       }
+    },
+    "hoss": {
+      "passwordHash": "$2a$10$n4UthP/uy0s2W4spEafCxeKJIiLC1SZMXSBYq2EcP0gVyJSPlZlh6",
+      "data": {
+        "usercreated": 2
+      }
     }
   }
 }

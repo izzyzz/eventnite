@@ -18,6 +18,14 @@
       "description": "Ring in the New Year with us at the skating rink at Rockefeller Center. Skate Rentals: $5.",
       "p": "public"
     },
-    "undefined": {}
+    "Game Night": {
+      "title": "Game Night",
+      "datestart": "2019-12-14",
+      "dateend": "2019-12-15",
+      "image": "https://st2.depositphotos.com/5260901/7909/i/950/depositphotos_79090002-stock-photo-group-crowd-of-people-friends.jpg",
+      "address": "Chapel Hill, NC",
+      "description": "Celebrate the end of finals with game night!",
+      "p": "public"
+    }
   }
 }

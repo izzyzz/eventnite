@@ -39,6 +39,13 @@
         "datestart": "2019-12-12",
         "dateend": "2019-12-12",
         "notes": ""
+      },
+      "Game Night": {
+        "title": "Game Night",
+        "created": true,
+        "datestart": "2019-12-14",
+        "dateend": "2019-12-15",
+        "notes": ""
       }
     }
   }

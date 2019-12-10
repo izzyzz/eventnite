@@ -31,7 +31,7 @@ router.get('/status', authenticateUser, function (req, res) {
 
 router.post('/users', authenticateUser, function (req, res) {
   let name = req.body.name;
-  let pwd = req.body.pass;
+  let pass = req.body.pass;
   bcrypt.hash(pass, saltRounds, (err, hash) => {
     accountStore.set(`users.${name}`, {
       passwordHash: hash,
