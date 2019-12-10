@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>EventNite Create Event</title>
+</head>
+
+<body>
+    <a class="home button" href="index.html">HOME</a>
+    <a class="login button" href="login.html">LOGIN</a>
+    <h1 class="title"><input type="text" class="eventtitleinput" value="Input Event Title"></h1>
+    <hr>
+    <div class="createcontainer">
+        <p class=>Upload a Cover Image for Your Event</p>
+        <input type="text" class="backgroundimage" placeholder="Please Input a Link to Your Image">
+        <br>
+        <p>Describe Your Event!</p>
+        <div class="radiocontainer">
+            <input type="radio" class="radio" name="type" value="public" checked>Public
+            <input type="radio" class="radio" name="type" value="private">Private
+        </div>
+        <br>
+        <div class="dateinput"><input type="date" class="datestart"> to <input type="date" class="dateend">
+        </div>
+        <br>
+        <input type="text" class="addressinput" placeholder="Where is your event? (Please input a valid address)">
+        <br>
+        <input type="text" class="descriptioninput" placeholder="What would you like people to know about your event?">
+        <br>
+        <!-- <p>Choose Your Tags!</p>
+        <div class="searchcontainer tagadd">
+            <input class="search searchtagsadd" type="text" placeholder="Search Tags">
+            <button class="button" type="submit"><i class="fa fa-search"></i></button>
+            <ul class='results'></ul>
+        </div> -->
+        <button class="updateevent button">UPDATE EVENT</button>
+    </div>
+
+
+    <script type="module" src="App.js"></script>
+    <script src="node_modules/axios/dist/axios.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</body>
+
+</html>
