@@ -29,6 +29,7 @@ function backtoLogin() {
 
 function logout() {
     window.localStorage.removeItem("jwt");
+    window.localStorage.removeItem("uname");
 }
 
 async function createAccount() {
@@ -43,7 +44,10 @@ async function createAccount() {
                 url: "http://localhost:3000/account/create",
                 data: {
                     name: uname,
-                    pass: pwd
+                    pass: pwd,
+                    data: {
+                        usercreated: 0
+                    }
                 }
             });
 
@@ -82,12 +86,14 @@ async function login() {
         });
 
         window.localStorage.setItem("jwt", account.data.jwt);
+        window.localStorage.setItem("uname", uname);
         window.localStorage.setItem("loggedin", true);
         window.location.replace("index.html");
     } catch (e) {
         $(".alert").text("Incorrect Username or Password");
         $(".alert").css("display", "block");
     }
+
 
 }
 
@@ -268,13 +274,6 @@ async function createEvent() {
                 }
             }
         })
-        let created = window.localStorage.getItem("usercreated")
-        console.log(created);
-        if (created == null) {
-            window.localStorage.setItem("usercreated", 1);
-        } else {
-            window.localStorage.setItem("usercreated", parseInt(created, 10) + 1);
-        }
     }
     window.localStorage.setItem("title", rtitle);
     window.location.replace("page.html");
@@ -312,7 +311,6 @@ function getEventPage() {
 
 function getEventPageByMine() {
     let name = $(this).find("b").text();
-    console.log(name);
     window.localStorage.setItem("title", name);
     window.location.replace("page.html");
 }
@@ -334,7 +332,17 @@ async function renderPage() {
         });
         result = results.data.result;
         target.find(".add").css("display", "block");
-        if (window.localStorage.getItem("usercreated") != null || window.localStorage.getItem("usercreated") != 0) {
+        let status = await axios({
+            method: 'GET',
+            url: "http://localhost:3000/account/status",
+            headers: {
+                "Authorization": "Bearer " + jwt
+            },
+        })
+        let created = status.data.user.data.usercreated;
+        console.log(status.data.user);
+        if (created != "0") {
+            //if you have your user events, get your events
             let usercheck = await axios({
                 method: 'GET',
                 url: `http://localhost:3000/user/events`,
@@ -343,13 +351,16 @@ async function renderPage() {
                 },
             });
             let keys = Object.keys(usercheck.data.result);
+            //for each event, if its already your event, don't display add to my event
+            //for each event, if it is already your event, and you created it, allow update.
             keys.forEach((event) => {
                 if (usercheck.data.result[event].title == name) {
                     target.find(".add").css("display", "none");
+                    if (usercheck.data.result[event].created) {
+                        target.find(".image-container").find(".after").find(".edit").css("display", "block");
+                    }
                 }
-                if (usercheck.data.result[event].created == "false") {
-                    target.find(".image-container").find(".after").find(".edit").css("display", "none");
-                }
+
             });
         }
 
@@ -637,17 +648,41 @@ async function addMyEvent() {
             }
         })
     }
+    let status = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/account/status",
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
+    let created = status.data.user.data.usercreated;
+    let update = await axios({
+        method: 'POST',
+        url: `http://localhost:3000/account/users`,
+        data: {
+            name: window.localStorage.getItem("uname"),
+            data: {
 
-    let created = window.localStorage.getItem("usercreated");
-    if (created == null) {
-        window.localStorage.setItem("usercreated", 1);
-    } else {
-        window.localStorage.setItem("usercreated", parseInt(created, 10) + 1);
-    }
+                usercreated: parseInt(created, 10) + 1
+            }
+        },
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
+
 }
 
 async function renderMyEvents() {
-    if (window.localStorage.getItem("usercreated") != 0 || window.localStorage.getItem("usercreated") != null) {
+    let status = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/account/status",
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
+    let created = status.data.user.data.usercreated;
+    if (created != 0) {
         let myevents = await axios({
             method: 'GET',
             url: `http://localhost:3000/user/events`,
@@ -663,7 +698,7 @@ async function renderMyEvents() {
             let dateend = myevents.data.result[event].dateend.split("-");
             let datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0] + " - " +
                 months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
-            if (myevents.data.result[event].created == "true") {
+            if (myevents.data.result[event].created == true) {
                 appendstr = appendstr + `<div class="event-card">
                 <div class="event-head"><b>${myevents.data.result[event].title}</b>:  ${datestr}</div>
                 <div class="event-notes"><p>${myevents.data.result[event].notes}</p><br><button class="editnotes button">EDIT NOTES</<button></div>
@@ -703,13 +738,12 @@ async function renderEdit() {
     </div>`)
     }
     window.localStorage.setItem("p", results.data.result.p);
-    console.log(window.localStorage.getItem("p"));
 }
 
 function renderEditNotes() {
     let target = $(this).parent();
     let text = $(this).parent().find("p").text();
-    target.replaceWith(`<div class="event-notes"><textarea class=${text}>${text}</textarea><br><button class="submitedit button">EDIT</button><button class="canceledit button">CANCEL</<button></div>`)
+    target.replaceWith(`<div class="event-notes"><textarea class=${text}>${text}</textarea><br><button class="submitedit button">SAVE</button><button class="canceledit button">CANCEL</<button></div>`)
 }
 
 function renderCancelEdit() {
@@ -750,8 +784,28 @@ async function deleteMine() {
     });
     target.remove(this);
 
-    let created = window.localStorage.getItem("usercreated");
-    window.localStorage.setItem("usercreated", parseInt(created, 10) - 1);
+    let status = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/account/status",
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
+    let created = status.data.user.data.usercreated;
+    let update = await axios({
+        method: 'POST',
+        url: `http://localhost:3000/account/users`,
+        data: {
+            name: window.localStorage.getItem("uname"),
+            data: {
+
+                usercreated: parseInt(created, 10) - 1
+            }
+        },
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
 }
 
 async function deleteEvent() {
@@ -785,10 +839,35 @@ async function deleteEvent() {
             "Authorization": "Bearer " + jwt
         },
     });
-    let created = window.localStorage.getItem("usercreated");
-    window.localStorage.setItem("usercreated", parseInt(created, 10) - 1);
+    let status = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/account/status",
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
+    let created = status.data.user.data.usercreated;
+    let update = await axios({
+        method: 'POST',
+        url: `http://localhost:3000/account/users`,
+        data: {
+            name: window.localStorage.getItem("uname"),
+            data: {
+
+                usercreated: parseInt(created, 10) - 1
+            }
+        },
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
     window.location.replace("index.html");
 }
+
+function handleCancel() {
+    window.location.replace("page.html");
+}
+
 
 window.onload = function () {
     $(document).on("click", ".newuser", loadCreateAccount);
@@ -810,6 +889,7 @@ window.onload = function () {
     $(document).on("click", ".removenotes", deleteMine);
     $(document).on("click", ".updateevent", update);
     $(document).on("click", ".deleteevent", deleteEvent);
+    $(document).on("click", ".cancelupdate", handleCancel);
     if (top.location.pathname === '/page.html') {
         renderPage()
     }

@@ -1,7 +1,7 @@
 import express from "express";
-import {authenticateUser} from "../middlewares/auth";
+import { authenticateUser } from "../middlewares/auth";
 import bcrypt from 'bcryptjs';
-import {userFilter} from "../filters/user";
+import { userFilter } from "../filters/user";
 import jwt from 'jsonwebtoken';
 
 export const router = express.Router();
@@ -9,7 +9,7 @@ export const prefix = '/account';
 
 const saltRounds = 10;
 
-const {accountStore} = require('../data/DataStore');
+const { accountStore } = require('../data/DataStore');
 
 
 /**
@@ -23,11 +23,18 @@ router.get('/status', authenticateUser, function (req, res) {
     {
       user: {
         name: req.user.name,
-        ...userFilter(accountStore.get(`users.${req.user.name}`))
+        ...userFilter(accountStore.get(`users.${req.user.name}`)),
       }
     }
   );
 });
+
+router.post('/users', authenticateUser, function (req, res) {
+  let name = req.body.name;
+  accountStore.set(`users.${name}`, {
+    data: req.body.data
+  });
+})
 
 /**
  * Given a name and pass, validates a user
@@ -35,7 +42,7 @@ router.get('/status', authenticateUser, function (req, res) {
  */
 router.post('/login', async function (req, res) {
   if (!req.body.name || !req.body.pass) {
-    res.status(401).send({msg: 'Expected a payload of name and pass.'});
+    res.status(401).send({ msg: 'Expected a payload of name and pass.' });
     return;
   }
 
@@ -44,21 +51,21 @@ router.post('/login', async function (req, res) {
 
   let user = accountStore.get(`users.${name}`);
   if (!user) {
-    res.status(401).send({msg: `User '${req.body.name}' is not a registered user.`});
+    res.status(401).send({ msg: `User '${req.body.name}' is not a registered user.` });
     return;
   }
   const result = await checkUser(name, pass);
   if (!result) {
-    res.status(401).send({msg: 'Bad username or password.'});
+    res.status(401).send({ msg: 'Bad username or password.' });
     return;
   }
   let userData = accountStore.get(`users.${name}.data`);
   const token = jwt.sign({
     name,
     data: userData
-  }, process.env.SECRET_KEY, {expiresIn: '30d'});
+  }, process.env.SECRET_KEY, { expiresIn: '30d' });
 
-  res.send({jwt: token, data: userData, name});
+  res.send({ jwt: token, data: userData, name });
 });
 
 /**
@@ -68,7 +75,7 @@ router.post('/login', async function (req, res) {
  */
 router.post('/create', function (req, res) {
   if (!req.body.name || !req.body.pass) {
-    res.status(401).send({msg: 'Expected a payload of name and pass.'});
+    res.status(401).send({ msg: 'Expected a payload of name and pass.' });
     return;
   }
 
@@ -78,7 +85,7 @@ router.post('/create', function (req, res) {
 
   let user = accountStore.get(`users.${name}`);
   if (user) {
-    res.status(401).send({msg: `User '${req.body.name}' is already a registered user.`});
+    res.status(401).send({ msg: `User '${req.body.name}' is already a registered user.` });
     return;
   }
 
@@ -87,7 +94,7 @@ router.post('/create', function (req, res) {
       passwordHash: hash,
       data: req.body.data
     });
-    res.send({data: userFilter(accountStore.get(`users.${name}`)), status: 'Successfully made account'});
+    res.send({ data: userFilter(accountStore.get(`users.${name}`)), status: 'Successfully made account' });
   });
 
 });

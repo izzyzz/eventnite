@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "izzy": {
     "events": {
       "Chapel Hill": {
@@ -9,5 +10,20 @@
         "notes": ""
       }
     }
+=======
+  "hannah": {
+    "events": {
+      "COMP 426 Final": {
+        "title": "COMP 426 Final",
+        "created": true,
+        "datestart": "2019-12-12",
+        "dateend": "2019-12-12",
+        "notes": "Gotta remember to do the video and the poster"
+      }
+    }
+  },
+  "izzy": {
+    "events": {}
+>>>>>>> 19b6ff260c1b6d4d265b1321897d4cf0783dd137
   }
 }

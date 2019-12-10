@@ -79,6 +79,10 @@ input[type="submit"] {
     margin-bottom: 30px;
 }
 
+.edit {
+    display: none;
+}
+
 .button:hover,
 input[type="submit"]:hover {
     background-color: rgb(226, 80, 67);
@@ -427,6 +431,7 @@ textarea {
     height: 69%;
     font-family: Montserrat;
 }
+<<<<<<< HEAD
 
 #map {
     height: 50%;
@@ -436,3 +441,5 @@ textarea {
     margin-top: -4%;
     margin-bottom:3%;
 }
+=======
+>>>>>>> 19b6ff260c1b6d4d265b1321897d4cf0783dd137
