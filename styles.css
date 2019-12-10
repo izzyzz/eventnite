@@ -87,9 +87,10 @@ input[type="submit"]:hover {
 /* hompage styles */
 
 .searchcontainer {
-    width: 430px;
+    width: 600px;
     margin: auto;
     margin-top: 50px;
+    margin-left: 32%;
 }
 
 .searchcontainer+.searchcontainer {
@@ -99,7 +100,7 @@ input[type="submit"]:hover {
 
 .search {
     height: 38px;
-    width: 300px;
+    width: 450px;
     padding-left: 20px;
     border: 1px solid #124653;
     font-size: 14px;
@@ -301,6 +302,17 @@ h3 {
     width: 150px;
 }
 
+.alert {
+    background-color: rgb(255, 148, 148);
+    border-radius: 3px;
+    color: rgb(199, 52, 52);
+    font-size: 13px;
+    padding: 3%;
+    text-align: center;
+    display: none;
+}
+
+
 /* create event styles */
 .createcontainer {
     background-color: white;
@@ -449,3 +461,4 @@ h3 {
     margin-right: 5px;
     border: 1px solid #124653;
 }
+

@@ -20,6 +20,9 @@
     },
     "hannahtest": {
       "passwordHash": "$2a$10$fVYEbtMa0ToLVzJfktCR6OvHxEd8d1b1BKpoj8vVqPRqB4wxz2Fje"
+    },
+    "hello": {
+      "passwordHash": "$2a$10$/7KMlXpHQVgZrrw1NLkvDeZnC33rYpe/jRcpdbb7XOalaOhGvIf2W"
     }
   }
 }

@@ -1,11 +1,13 @@
 function loadCreateAccount() {
     let target = $(this).parent();
     target.replaceWith(`<div class="logincontainer">
+    <div class="alert"></div>
     <p class="labels">USERNAME</p>
     <input type="text" placeholder="Create a Username" class="unameinput" required>
     <p class="labels">PASSWORD</p>
     <input type="password" placeholder="Choose a Password" class="password" required>
-
+    <p class="labels">SECRET KEY</p>
+    <input type="password" placeholder="Enter Secret Key" class="key" required>
     <button class="button createaccount" type="submit">CREATE ACCOUNT</button>
     <button class="button backtologin" type="submit">LOGIN</button>
     </div>`)
@@ -15,6 +17,7 @@ function loadCreateAccount() {
 function backtoLogin() {
     let target = $(this).parent();
     target.replaceWith(`<div class="logincontainer">
+    <div class="alert"></div>
     <p class="labels">USERNAME</p>
     <input type="text" placeholder="Enter Username" class="unameinput" required>
     <p class="labels">PASSWORD</p>
@@ -32,18 +35,20 @@ async function createAccount() {
     let uname = $(this).parent().find(".unameinput").val();
     let pwd = $(this).parent().find(".password").val();
     let target = $(this).parent();
+    let key = $(this).parent().find(".key").val();
+    if (key == "secret") {
+        try {
+            let account = await axios({
+                method: "POST",
+                url: "http://localhost:3000/account/create",
+                data: {
+                    name: uname,
+                    pass: pwd
+                }
+            });
 
-    try {
-        let account = await axios({
-            method: "POST",
-            url: "http://localhost:3000/account/create",
-            data: {
-                name: uname,
-                pass: pwd
-            }
-        });
-
-        target.replaceWith(`<div class="logincontainer">
+            target.replaceWith(`<div class="logincontainer">
+            <div class="alert">Success!</div>
         <p class="labels">USERNAME</p>
         <input type="text" placeholder="Enter Username" class="unameinput" required>
         <p class="labels">PASSWORD</p>
@@ -51,10 +56,16 @@ async function createAccount() {
         <button class="button loginsubmit" type="submit">LOGIN</button>
         <button class="button newuser" type="submit">NEW USER</button>
         </div>`)
-    } catch (e) {
-        alert("Something went wrong! Please try again.");
+        } catch (e) {
+            $(".alert").text("Something went wrong! Please try again.");
+            $(".alert").css("display", "block");
+        }
+        return true;
     }
-    return true;
+    else {
+        $(".alert").text("Invalid Secret Key! Please try again.")
+        $(".alert").css("display", "block");
+    }
 }
 
 async function login() {
@@ -74,7 +85,8 @@ async function login() {
         window.localStorage.setItem("loggedin", true);
         window.location.replace("index.html");
     } catch (e) {
-        alert("Incorrect Username or Password");
+        $(".alert").text("Incorrect Username or Password");
+        $(".alert").css("display", "block");
     }
 
 }
