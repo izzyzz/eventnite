@@ -26,10 +26,6 @@ router.get('/*', parseGet, function (req, res) {
   }
 });
 
-router.get('/events', parseGet, function (req, res) {
-  res.send(publicStore.get(`events`));
-})
-
 router.post('/*', parsePost, function (req, res) {
   const result = req.handlePost(publicStore);
   if (typeof result !== 'undefined') {
@@ -52,22 +48,33 @@ router.get('/events', parseGet, function (req, res) {
   res.send(publicStore.get(`events`));
 })
 
-router.post('/events/create', function (req, res) {
+router.post('/events/*', function (req, res) {
   const name = req.body.name.toLowerCase();
 
   let event = publicStore.get(`events.${name}`);
   if (event) {
-    res.status(401).send({ msg: `Event '${req.body.name}' has already been created.` });
+    res.status(401).send({
+      msg: `Event '${req.body.name}' has already been created.`
+    });
     return;
   }
 
-  publicStore.set(`events.${name}`, {
-    datestart: dates,
-    dateend: datee,
-    image: img,
-    address: addy,
-    description: desc,
-    comments: []
+  publicStore.set(`${name}`, {
+    data: {
+      title: req.body.name,
+      datestart: req.body.datestart,
+      dateend: req.body.dateend,
+      image: req.body.image,
+      address: req.body.address,
+      description: req.body.description,
+      p: req.body.p,
+      comments: [],
+    }
+
+  })
+
+  res.send({
+    status: "successfully created event"
   })
 
 });

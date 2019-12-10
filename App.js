@@ -182,39 +182,63 @@ async function getResults(searchinput) {
 async function createEvent() {
     let container = $(this).parent();
     let body = $(this).parent().parent();
-    let title = body.find('.title').find('.eventtitleinput').val();
-    let image = container.find('.imagepreview').attr('id');
-    let p = container.find('.radiocontainer').find('.radio').val()
-    let datestart = container.find('.datestart').val();
-    let dateend = container.find('dateend').val();
-    let address = container.find('.addressinput').val();
-    let description = container.find('.descriptioninput').val();
-    let comments = [];
+    let rtitle = body.find('.title').find('.eventtitleinput').val();
+    let rimage = container.find('.backgroundimage').val();
+    let rp = container.find('.radiocontainer').find('.radio').val()
+    let rdatestart = container.find('.datestart').val();
+    let rdateend = container.find('.dateend').val();
+    let raddress = container.find('.addressinput').val();
+    let rdescription = container.find('.descriptioninput').val();
 
-    let url = "http://localhost:3000/" + p;
-    // let result = await axios ({
-    //     method: 'GET',
-
-    // })
-
-}
-
-function previewImage() {
-    let image = document.querySelector('img');
-    let filename = document.querySelector('input[type=file]').files[0];
-    let reader = new FileReader();
-
-    reader.addEventListener("load", function () {
-        image.src = reader.result;
-        image.id = reader.result;
-    }, false);
-
-
-    if (filename) {
-        reader.readAsDataURL(filename);
+    let dataobj = {
+        title: rtitle,
+        datestart: rdatestart,
+        dateend: rdateend,
+        image: rimage,
+        address: raddress,
+        description: rdescription,
+        p: rp,
+        comments: []
     }
 
+    console.log(dataobj);
+
+    let baseurl = "http://localhost:3000/" + rp + "/events";
+    let result = await axios({
+        method: 'POST',
+        url: baseurl,
+        data: {
+            title: rtitle,
+            datestart: rdatestart,
+            dateend: rdateend,
+            image: rimage,
+            address: raddress,
+            description: rdescription,
+            p: rp,
+            comments: [],
+            data: {}
+        }
+    });
+
+
 }
+
+// function previewImage() {
+//     let image = document.querySelector('img');
+//     let filename = document.querySelector('input[type=file]').files[0];
+//     let reader = new FileReader();
+
+//     reader.addEventListener("load", function () {
+//         image.src = reader.result;
+//         image.id = reader.result;
+//     }, false);
+
+
+//     if (filename) {
+//         reader.readAsDataURL(filename);
+//     }
+
+// }
 
 
 async function test() {
@@ -283,8 +307,8 @@ window.onload = function () {
     $(document).on("click", ".logout", logout);
     $(document).on("click", ".newevent", createEvent);
     $(document).on("input", ".searchevents", searchevents);
-    $(document).on("change", ".backgroundimage", previewImage);
     $(document).on("click", "li", getEvent);
+    // $(document).on("change", ".backgroundimage", previewImage);
     renderPage()
     checkLoggedIn();
     let loggedin = window.localStorage.getItem("loggedin");

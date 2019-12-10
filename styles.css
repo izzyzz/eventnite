@@ -321,6 +321,10 @@ h3 {
 .backgroundimage {
     font-family: Montserrat;
     font-size: 12px;
+    width: 80%;
+    height: 30px;
+    border: 1px solid #124653;
+    padding: 10px;
 }
 
 .dateinput * {
@@ -328,6 +332,7 @@ h3 {
     font-family: Montserrat;
     height: 30px;
     margin: 10px;
+    padding: 10px;
 }
 
 .addressinput {
