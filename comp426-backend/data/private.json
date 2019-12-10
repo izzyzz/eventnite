@@ -26,6 +26,15 @@
       "address": "45 Rockefeller Plaza, New York, NY 10111",
       "description": "Ring in the New Year with us at the skating rink at Rockefeller Center. Skate Rentals: $5.",
       "p": "public"
+    },
+    "Group Study Session": {
+      "title": "Group Study Session",
+      "datestart": "2020-04-05",
+      "dateend": "2020-04-06",
+      "image": "https://static5.depositphotos.com/1037987/475/i/450/depositphotos_4755435-stock-photo-college-students-studying-together-in.jpg",
+      "address": "Chapel Hill, NC",
+      "description": "booo finals",
+      "p": "private"
     }
   }
 }

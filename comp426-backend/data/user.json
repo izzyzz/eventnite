@@ -21,17 +21,13 @@
         "datestart": "2019-12-31",
         "dateend": "2020-01-01",
         "notes": ""
-      }
-    }
-  },
-  "izzy": {
-    "events": {
-      "COMP 426 Finals": {
-        "title": "COMP 426 Finals",
-        "created": false,
-        "datestart": "2019-12-12",
-        "dateend": "2019-12-12",
-        "notes": "Remember to show up on time!"
+      },
+      "Group Study Session": {
+        "title": "Group Study Session",
+        "created": true,
+        "datestart": "2020-04-05",
+        "dateend": "2020-04-06",
+        "notes": ""
       }
     }
   }

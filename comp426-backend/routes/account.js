@@ -31,7 +31,9 @@ router.get('/status', authenticateUser, function (req, res) {
 
 router.post('/users', authenticateUser, function (req, res) {
   let name = req.body.name;
+  let pwd = req.body.pass;
   accountStore.set(`users.${name}`, {
+    pass: pwd,
     data: req.body.data
   });
 })
