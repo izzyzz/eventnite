@@ -452,6 +452,29 @@ async function getEditPage() {
 
 }
 
+async function update() {
+    let jwt = window.localStorage.getItem("jwt");
+    let result = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/private/events/TEST',
+        data: {
+            data: {
+                "title": "TEST",
+                "datestart": "1212-12-12",
+                "dateend": "1222-12-12",
+                "image": "12",
+                "address": "12",
+                "description": "15",
+                "p": "public",
+                "comments": []
+            }
+        },
+        headers: {
+            "Authorization": "Bearer " + jwt
+        },
+    });
+}
+
 function renderEdit() {
     let name = window.localStorage.getItem("title")
     let addy = window.localStorage.getItem("addy")
@@ -488,11 +511,14 @@ window.onload = function () {
     $(document).on("click", "li", getEvent);
     $(document).on("click", ".event", getEventPage);
     $(document).on("click", ".edit", getEditPage)
+    $(document).on("click", ".updateevent", update)
     if (top.location.pathname === '/page.html') {
         renderPage()
     }
     renderEvents()
-    renderEdit()
+    if (top.location.pathname === '/updateevent.html') {
+        renderEdit()
+    }
     checkLoggedIn();
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {

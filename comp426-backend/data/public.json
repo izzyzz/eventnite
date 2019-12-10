@@ -32,6 +32,16 @@
       "description": "Skate rental - $5",
       "p": "public",
       "comments": []
+    },
+    "TEST": {
+      "title": "TEST",
+      "datestart": "2019-12-11",
+      "dateend": "2019-12-19",
+      "image": "https://www.uhs.umich.edu/files/uhs/field/image/TEST.jpg",
+      "address": "TESTING",
+      "description": "123",
+      "p": "public",
+      "comments": []
     }
   }
 }
