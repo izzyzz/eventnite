@@ -208,15 +208,17 @@ async function createEvent() {
         method: 'POST',
         url: baseurl,
         data: {
-            title: rtitle,
-            datestart: rdatestart,
-            dateend: rdateend,
-            image: rimage,
-            address: raddress,
-            description: rdescription,
-            p: rp,
-            comments: [],
-            data: {}
+
+            data: {
+                title: rtitle,
+                datestart: rdatestart,
+                dateend: rdateend,
+                image: rimage,
+                address: raddress,
+                description: rdescription,
+                p: rp,
+                comments: [],
+            }
         }
     });
 
@@ -269,8 +271,10 @@ async function getEvent() {
     if (loggedin == "true") {
         let results = await axios({
             method: 'GET',
-            url: `http://localhost:3000/public/events/${name}`,
-
+            url: `http://localhost:3000/private/events/${name}`,
+            headers: {
+                "Authorization": "Bearer " + jwt
+            },
         })
 
         window.localStorage.setItem("title", name);
@@ -290,11 +294,76 @@ async function getEvent() {
 
 }
 
+async function getEventPage() {
+    let name = $(this).find("h2").text();
+    let jwt = window.localStorage.getItem("jwt");
+    let loggedin = window.localStorage.getItem("loggedin");
+    if (loggedin == "true") {
+        let results = await axios({
+            method: 'GET',
+            url: `http://localhost:3000/private/events/${name}`,
+            headers: {
+                "Authorization": "Bearer " + jwt
+            },
+        })
+
+        window.localStorage.setItem("title", name);
+        window.localStorage.setItem("desc", results.data.result.description);
+        window.location.replace("page.html");
+    } else {
+        let results = await axios({
+            method: 'GET',
+            url: `http://localhost:3000/public/events/${name}`,
+        })
+        window.localStorage.setItem("title", name);
+        window.localStorage.setItem("desc", results.data.result.description);
+
+        window.location.replace("page.html");
+
+    }
+
+}
 function renderPage() {
     let name = window.localStorage.getItem("title")
     let desc = window.localStorage.getItem("desc")
     $("#eventtitle").html(`${name}`)
     $(".description").html(`${desc}`)
+}
+
+async function renderEvents() {
+    let jwt = window.localStorage.getItem("jwt");
+    let loggedin = window.localStorage.getItem("loggedin");
+    if (loggedin == "true") {
+        let results = await axios({
+            method: 'GET',
+            url: `http://localhost:3000/private/events/`,
+            headers: {
+                "Authorization": "Bearer " + jwt
+            },
+        })
+        results.data.result.forEach((result) => {
+            $(".container").append(`<div class="event">
+        <div class="image"></div>
+        <h2 class="title">${result}</h2>
+        <hr></hr>
+        <p class="date">Jan 21st 8am - Jan 21st 9am</p>
+    </div>`)
+        })
+    } else {
+        let results = await axios({
+            method: 'GET',
+            url: `http://localhost:3000/public/events/`,
+        })
+        results.data.result.forEach((result) => {
+            $(".container").append(`<div class="event">
+        <div class="image"></div>
+        <h2 class="title">${result}</h2>
+        <hr></hr>
+        <p class="date">Jan 21st 8am - Jan 21st 9am</p>
+    </div>`)
+        })
+    }
+
 }
 
 
@@ -308,8 +377,9 @@ window.onload = function () {
     $(document).on("click", ".newevent", createEvent);
     $(document).on("input", ".searchevents", searchevents);
     $(document).on("click", "li", getEvent);
-    // $(document).on("change", ".backgroundimage", previewImage);
+    $(document).on("click", ".event", getEventPage);
     renderPage()
+    renderEvents()
     checkLoggedIn();
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {

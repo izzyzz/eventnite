@@ -59,16 +59,18 @@ router.post('/events/*', function (req, res) {
     return;
   }
 
-  publicStore.set(`${name}`, {
+  publicStore.set(event, {
     data: {
-      title: req.body.name,
-      datestart: req.body.datestart,
-      dateend: req.body.dateend,
-      image: req.body.image,
-      address: req.body.address,
-      description: req.body.description,
-      p: req.body.p,
-      comments: [],
+      data: {
+        title: req.body.name,
+        datestart: req.body.datestart,
+        dateend: req.body.dateend,
+        image: req.body.image,
+        address: req.body.address,
+        description: req.body.description,
+        p: req.body.p,
+        comments: [],
+      }
     }
 
   })
