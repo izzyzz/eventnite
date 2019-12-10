@@ -1,6 +1,7 @@
 {
   "izzy": {
     "events": {
+<<<<<<< HEAD
       "12": {
         "title": "12",
         "datestart": "12-12-1212",
@@ -13,6 +14,8 @@
         "dateend": "2020-01-02",
         "notes": ""
       },
+=======
+>>>>>>> 0e1b4fd87901f32cebdbf05dc2f651c1db3a48df
       "My Event 2": {
         "title": "My Event 2",
         "datestart": "2020-07-29",
@@ -48,6 +51,11 @@
         "datestart": "12-12-2021",
         "dateend": "12-12-2021",
         "notes": ""
+      },
+      "TEST": {
+        "title": "TEST",
+        "datestart": "1212-12-12",
+        "dateend": "1222-12-12"
       },
       "Our event": {
         "title": "Our event",
