@@ -30,6 +30,7 @@ function backtoLogin() {
 function logout() {
     window.localStorage.removeItem("jwt");
     window.localStorage.removeItem("uname");
+    window.localStorage.removeItem("pass");
 }
 
 async function createAccount() {
@@ -87,6 +88,7 @@ async function login() {
 
         window.localStorage.setItem("jwt", account.data.jwt);
         window.localStorage.setItem("uname", uname);
+        window.localStorage.setItem("pass", pwd);
         window.localStorage.setItem("loggedin", true);
         window.location.replace("index.html");
     } catch (e) {
@@ -287,6 +289,7 @@ async function createEvent() {
             url: `http://localhost:3000/account/users`,
             data: {
                 name: window.localStorage.getItem("uname"),
+                pass: window.localStorage.getItem("pass"),
                 data: {
 
                     usercreated: parseInt(created, 10) + 1
@@ -468,9 +471,9 @@ async function renderEvents() {
                 months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
             $(".container").append(`<div class="event">
             <div class=image style="background-image: url(${results2.data.result[result].image})";></div>
-            <h2 class="title">${datestr}</h2>
+            <h2 class="title">${results2.data.result[result].title}</h2>
             <hr></hr>
-            <p class="date">Jan 21st 8am - Jan 21st 9am</p>
+            <p class="date">${datestr}</p>
         </div>`)
         })
     }
@@ -686,8 +689,8 @@ async function addMyEvent() {
         url: `http://localhost:3000/account/users`,
         data: {
             name: window.localStorage.getItem("uname"),
+            pass: window.localStorage.getItem("pass"),
             data: {
-
                 usercreated: parseInt(created, 10) + 1
             }
         },
@@ -822,6 +825,7 @@ async function deleteMine() {
         url: `http://localhost:3000/account/users`,
         data: {
             name: window.localStorage.getItem("uname"),
+            pass: window.localStorage.getItem("pass"),
             data: {
 
                 usercreated: parseInt(created, 10) - 1
@@ -877,6 +881,7 @@ async function deleteEvent() {
         url: `http://localhost:3000/account/users`,
         data: {
             name: window.localStorage.getItem("uname"),
+            pass: window.localStorage.getItem("pass"),
             data: {
 
                 usercreated: parseInt(created, 10) - 1
