@@ -212,8 +212,9 @@ img {
     margin: 0px;
 }
 
-.description {
-    padding: 5%;
+.description, .address {
+    padding-left: 5%;
+    padding-top: 3%;
     padding-bottom: 0;
 }
 

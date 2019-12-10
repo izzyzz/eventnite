@@ -13,13 +13,13 @@
 <body class="page-body">
     <div class="image-container">
 
-        <img src="https://live.staticflickr.com/6165/6255417403_94120a2697_c.jpg">
+        <img id="header" src="https://live.staticflickr.com/6165/6255417403_94120a2697_c.jpg">
 
         <div class="after">
             <a class="home button" href="index.html">HOME</a>
             <a class="login button" href="login.html">LOGIN</a>
             <h1 id="eventtitle">Hi</h1>
-            <p class="datetitle"></p>
+            <p class="datetitle"><span class="startdate"></span><span class=enddate></span></p>
             <div class="rectangle"></div>
             <a class="edit button">UPDATE EVENT</a>
         </div>
@@ -28,6 +28,10 @@
         <div class="description">Description:</div>
         <p class="text"></p>
         <!-- <div class="tags"></div> -->
+        <p class="date"></p>
+    </div>
+    <div class="addresscontainer">
+        <p class="address"></p>
     </div>
     <hr>
     <div class="comments">
@@ -44,6 +48,8 @@
     <script type="module" src="App.js"></script>
     <script src="node_modules/axios/dist/axios.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js"></script>
+
 </body>
 
 </html>

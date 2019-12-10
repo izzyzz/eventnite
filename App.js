@@ -308,6 +308,11 @@ async function getEventPage() {
 
         window.localStorage.setItem("title", name);
         window.localStorage.setItem("desc", results.data.result.description);
+        window.localStorage.setItem("startdate", results.data.result.datestart);
+        window.localStorage.setItem("enddate", results.data.result.dateend);
+        window.localStorage.setItem("pic", results.data.image);
+        window.localStorage.setItem("addy", results.data.address);
+
         window.location.replace("page.html");
     } else {
         let results = await axios({
@@ -316,7 +321,10 @@ async function getEventPage() {
         })
         window.localStorage.setItem("title", name);
         window.localStorage.setItem("desc", results.data.result.description);
-
+        window.localStorage.setItem("startdate", results.data.result.datestart);
+        window.localStorage.setItem("enddate", results.data.result.dateend);
+        window.localStorage.setItem("pic", results.data.result.image);
+        window.localStorage.setItem("addy", results.data.result.address);
         window.location.replace("page.html");
 
     }
@@ -326,11 +334,23 @@ async function getEventPage() {
 function renderPage() {
     let name = window.localStorage.getItem("title")
     let desc = window.localStorage.getItem("desc")
+    let start = window.localStorage.getItem("startdate")
+    let end = window.localStorage.getItem("enddate")
+    let pic = window.localStorage.getItem("pic")
+    let addy = window.localStorage.getItem("addy")
     $("#eventtitle").html(`${name}`)
     $(".description").html(`${desc}`)
+    $(".address").html(`${addy}`)
+    $('#header').attr("src", `${pic}`);
+    let startF = moment(start).format('MMMM D, Y')
+    let endF = moment(end).format('MMMM D, Y')
+    $(".startdate").html(`${startF}`)
+    if (startF != endF) { $(".enddate").html(` - ${endF}`) }
+
 }
 
 async function renderEvents() {
+
     let jwt = window.localStorage.getItem("jwt");
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {
@@ -343,24 +363,27 @@ async function renderEvents() {
         })
         results.data.result.forEach((result) => {
             $(".container").append(`<div class="event">
-        <div class="image"></div>
+        <div class="image"><img src=${result.image}></div>
         <h2 class="title">${result}</h2>
         <hr></hr>
         <p class="date">Jan 21st 8am - Jan 21st 9am</p>
     </div>`)
         })
+
     } else {
         let results = await axios({
             method: 'GET',
             url: `http://localhost:3000/public/events/`,
         })
+        let img = results.data;
         results.data.result.forEach((result) => {
             $(".container").append(`<div class="event">
         <div class="image"></div>
         <h2 class="title">${result}</h2>
         <hr></hr>
-        <p class="date">Jan 21st 8am - Jan 21st 9am</p>
+        <p class="date">${result}</p>
     </div>`)
+            console.log(img)
         })
     }
 
