@@ -411,6 +411,70 @@ async function renderEvents() {
     }
 }
 
+async function getEditPage() {
+    let name = $(this).parent().find("h1").text();
+    console.log(name);
+    let jwt = window.localStorage.getItem("jwt");
+    let loggedin = window.localStorage.getItem("loggedin");
+    if (loggedin == "true") {
+        let results = await axios({
+            method: 'GET',
+            url: `http://localhost:3000/private/events/${name}`,
+            headers: {
+                "Authorization": "Bearer " + jwt
+            },
+        })
+
+        window.localStorage.setItem("title", name);
+        window.localStorage.setItem("desc", results.data.result.description);
+        window.localStorage.setItem("startdate", results.data.result.datestart);
+        window.localStorage.setItem("p", results.data.result.p);
+        window.localStorage.setItem("enddate", results.data.result.dateend);
+        window.localStorage.setItem("pic", results.data.result.image);
+        window.localStorage.setItem("addy", results.data.result.address);
+
+        window.location.replace("updateevent.html");
+    } else {
+        let results = await axios({
+            method: 'GET',
+            url: `http://localhost:3000/public/events/${name}`,
+        })
+        window.localStorage.setItem("title", name);
+        window.localStorage.setItem("desc", results.data.result.description);
+        window.localStorage.setItem("startdate", results.data.result.datestart);
+        window.localStorage.setItem("enddate", results.data.result.dateend);
+        window.localStorage.setItem("p", results.data.result.p);
+        window.localStorage.setItem("pic", results.data.result.image);
+        window.localStorage.setItem("addy", results.data.result.address);
+        window.location.replace("updateevent.html");
+
+    }
+
+}
+
+function renderEdit() {
+    let name = window.localStorage.getItem("title")
+    let addy = window.localStorage.getItem("addy")
+    let desc = window.localStorage.getItem("desc")
+    let start = window.localStorage.getItem("startdate")
+    let end = window.localStorage.getItem("enddate")
+    let pic = window.localStorage.getItem("pic")
+    let p = window.localStorage.getItem("p")
+    console.log(name)
+    $(".eventtitleinput").replaceWith(`<input type="text" class="eventtitleinput" value="${name}">`)
+    $(".backgroundimage").replaceWith(`<input type="text" class="backgroundimage" value=${pic}>`)
+    $(".dateinput").replaceWith(`<div class="dateinput"><input type="date" class="datestart" value="${start}"> to <input type="date" class="dateend" value="${end}">
+    </div>`)
+    $(".addressinput").replaceWith(`<input type="text" class="addressinput" placeholder="Where is your event? (Please input a valid address)" value="${addy}">`)
+    $(".descriptioninput").replaceWith(`<input type="text" class="descriptioninput" placeholder="What would you like people to know about your event?" value="${desc}">`)
+    if (p == "private") {
+        $(".radiocontainer").replaceWith(`<div class="radiocontainer">
+            <input type="radio" class="radio" name="type" value="public">Public
+            <input type="radio" class="radio" name="type" value="private" checked>Private
+        </div>`)
+    }
+}
+
 
 window.onload = function () {
     $(document).on("click", ".newuser", loadCreateAccount);
@@ -423,8 +487,12 @@ window.onload = function () {
     $(document).on("input", ".searchevents", searchevents);
     $(document).on("click", "li", getEvent);
     $(document).on("click", ".event", getEventPage);
-    renderPage()
+    $(document).on("click", ".edit", getEditPage)
+    if (top.location.pathname === '/page.html') {
+        renderPage()
+    }
     renderEvents()
+    renderEdit()
     checkLoggedIn();
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {
