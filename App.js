@@ -203,20 +203,21 @@ async function createEvent() {
 
     console.log(dataobj);
 
-    let baseurl = "http://localhost:3000/" + rp + "/events";
+    let baseurl = "http://localhost:3000/" + rp + "/events/" + rtitle;
     let result = await axios({
         method: 'POST',
         url: baseurl,
         data: {
-            title: rtitle,
-            datestart: rdatestart,
-            dateend: rdateend,
-            image: rimage,
-            address: raddress,
-            description: rdescription,
-            p: rp,
-            comments: [],
-            data: {}
+            data: {
+                title: rtitle,
+                datestart: rdatestart,
+                dateend: rdateend,
+                image: rimage,
+                address: raddress,
+                description: rdescription,
+                p: rp,
+                comments: [],
+            }
         }
     });
 

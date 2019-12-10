@@ -51,26 +51,23 @@ router.get('/events', parseGet, function (req, res) {
 router.post('/events/*', function (req, res) {
   const name = req.body.name.toLowerCase();
 
-  let event = publicStore.get(`events.${name}`);
-  if (event) {
-    res.status(401).send({
-      msg: `Event '${req.body.name}' has already been created.`
-    });
-    return;
-  }
+  // let event = publicStore.get(`events.${name}`);
+  // if (event) {
+  //   res.status(401).send({
+  //     msg: `Event '${req.body.name}' has already been created.`
+  //   });
+  //   return;
+  // }
 
-  publicStore.set(`${name}`, {
-    data: {
-      title: req.body.name,
-      datestart: req.body.datestart,
-      dateend: req.body.dateend,
-      image: req.body.image,
-      address: req.body.address,
-      description: req.body.description,
-      p: req.body.p,
-      comments: [],
-    }
-
+  publicStore.set(name, {
+    title: req.body.name,
+    datestart: req.body.datestart,
+    dateend: req.body.dateend,
+    image: req.body.image,
+    address: req.body.address,
+    description: req.body.description,
+    p: req.body.p,
+    comments: [],
   })
 
   res.send({
