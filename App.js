@@ -200,7 +200,6 @@ async function createEvent() {
                     address: raddress,
                     description: rdescription,
                     p: rp,
-                    comments: [],
                 }
             }
         })
@@ -218,7 +217,6 @@ async function createEvent() {
                     address: raddress,
                     description: rdescription,
                     p: rp,
-                    comments: [],
                 }
             }
         });
@@ -237,7 +235,6 @@ async function createEvent() {
                     address: raddress,
                     description: rdescription,
                     p: rp,
-                    comments: [],
                 }
             }
         })
@@ -252,6 +249,7 @@ async function createEvent() {
             data: {
                 data: {
                     title: rtitle,
+                    created: true,
                     datestart: rdatestart,
                     dateend: rdateend,
                     notes: ""
@@ -327,18 +325,20 @@ async function renderPage() {
         if (window.localStorage.getItem("usercreated") != null || window.localStorage.getItem("usercreated") != 0) {
             let usercheck = await axios({
                 method: 'GET',
-                url: `http://localhost:3000/user/events/`,
+                url: `http://localhost:3000/user/events`,
                 headers: {
                     "Authorization": "Bearer " + jwt
                 },
             });
-
-            let usercheckarr = usercheck.data.result;
-            for (let i = 0; i < usercheckarr.length; i++) {
-                if (usercheckarr[i] == name) {
+            let keys = Object.keys(usercheck.data.result);
+            keys.forEach((event) => {
+                if (usercheck.data.result[event].title == name) {
                     target.find(".add").css("display", "none");
                 }
-            }
+                if (usercheck.data.result[event].created == "false") {
+                    target.find(".image-container").find(".after").find(".edit").css("display", "none");
+                }
+            });
         }
 
 
@@ -360,11 +360,6 @@ async function renderPage() {
     target.find(".image-container").find(".after").find(".datetitle").text(datestr);
     target.find(".descriptioncontainer").find(".textdescription").text(result.description);
     target.find(".descriptioncontainer").find(".textaddress").text(result.address);
-    let commentstr = ""
-    for (let i = 0; i < result.comments.length; i++) {
-        commentstr = commentstr + `<div class="comment">${result.comments[i]}</div>`;
-    }
-    target.find(".comments").find(".comments-container").replaceWith(`<div class="comments-container">${commentstr}</div>`);
 }
 
 async function renderEvents() {
@@ -458,44 +453,124 @@ async function update() {
         p = "private"
     }
     let desc = $(".descriptioninput").val()
-    let result = await axios({
-        method: 'post',
-        url: `http://localhost:3000/private/events/${name}`,
-        data: {
+    //updating public event => both stores
+    //updating private event => private store
+    //changing public to private => remove from public store
+    //changing private to public => add to public store
+    if (p == "public" && window.localStorage.getItem("p") == "public") {
+        let result = await axios({
+            method: 'post',
+            url: `http://localhost:3000/private/events/${name}`,
             data: {
-                "title": `${name}`,
-                "datestart": `${datestart}`,
-                "dateend": `${dateend}`,
-                "image": `${img}`,
-                "address": `${address}`,
-                "description": `${desc}`,
-                "p": `${p}`,
-                "comments": []
-            }
-        },
-        headers: {
-            "Authorization": "Bearer " + jwt
-        },
-    });
-    let result2 = await axios({
-        method: 'post',
-        url: `http://localhost:3000/public/events/${name}`,
-        data: {
+                data: {
+                    "title": `${name}`,
+                    "datestart": `${datestart}`,
+                    "dateend": `${dateend}`,
+                    "image": `${img}`,
+                    "address": `${address}`,
+                    "description": `${desc}`,
+                    "p": `${p}`,
+                }
+            },
+            headers: {
+                "Authorization": "Bearer " + jwt
+            },
+        });
+        let result2 = await axios({
+            method: 'post',
+            url: `http://localhost:3000/public/events/${name}`,
             data: {
-                "title": `${name}`,
-                "datestart": `${datestart}`,
-                "dateend": `${dateend}`,
-                "image": `${img}`,
-                "address": `${address}`,
-                "description": `${desc}`,
-                "p": `${p}`,
-                "comments": []
-            }
-        },
-        headers: {
-            "Authorization": "Bearer " + jwt
-        },
-    });
+                data: {
+                    "title": `${name}`,
+                    "datestart": `${datestart}`,
+                    "dateend": `${dateend}`,
+                    "image": `${img}`,
+                    "address": `${address}`,
+                    "description": `${desc}`,
+                    "p": `${p}`,
+                }
+            },
+        });
+    }
+    else if (p == "private" && window.localStorage.getItem("p") == "private") {
+        let result = await axios({
+            method: 'post',
+            url: `http://localhost:3000/private/events/${name}`,
+            data: {
+                data: {
+                    "title": `${name}`,
+                    "datestart": `${datestart}`,
+                    "dateend": `${dateend}`,
+                    "image": `${img}`,
+                    "address": `${address}`,
+                    "description": `${desc}`,
+                    "p": `${p}`,
+
+                }
+            },
+            headers: {
+                "Authorization": "Bearer " + jwt
+            },
+        });
+    } else if (p == "private" && window.localStorage.getItem("p") == "public") {
+        let result = await axios({
+            method: 'post',
+            url: `http://localhost:3000/private/events/${name}`,
+            data: {
+                data: {
+                    "title": `${name}`,
+                    "datestart": `${datestart}`,
+                    "dateend": `${dateend}`,
+                    "image": `${img}`,
+                    "address": `${address}`,
+                    "description": `${desc}`,
+                    "p": `${p}`,
+                }
+            },
+            headers: {
+                "Authorization": "Bearer " + jwt
+            },
+        });
+        let result2 = await axios({
+            method: 'delete',
+            url: `http://localhost:3000/public/events/${name}`,
+        });
+
+    } else if (p == "public" && window.localStorage.getItem("p") == "private") {
+        let result = await axios({
+            method: 'post',
+            url: `http://localhost:3000/private/events/${name}`,
+            data: {
+                data: {
+                    "title": `${name}`,
+                    "datestart": `${datestart}`,
+                    "dateend": `${dateend}`,
+                    "image": `${img}`,
+                    "address": `${address}`,
+                    "description": `${desc}`,
+                    "p": `${p}`,
+                }
+            },
+            headers: {
+                "Authorization": "Bearer " + jwt
+            },
+        });
+        let result2 = await axios({
+            method: 'post',
+            url: `http://localhost:3000/public/events/${name}`,
+            data: {
+                data: {
+                    "title": `${name}`,
+                    "datestart": `${datestart}`,
+                    "dateend": `${dateend}`,
+                    "image": `${img}`,
+                    "address": `${address}`,
+                    "description": `${desc}`,
+                    "p": `${p}`,
+                }
+            },
+        });
+    }
 
     window.location.replace("page.html");
 }
@@ -532,12 +607,20 @@ async function addMyEvent() {
             data: {
                 data: {
                     title: rtitle,
+                    created: false,
                     datestart: start,
                     dateend: end,
                     notes: ""
                 }
             }
         })
+    }
+
+    let created = window.localStorage.getItem("usercreated");
+    if (created == null) {
+        window.localStorage.setItem("usercreated", 1);
+    } else {
+        window.localStorage.setItem("usercreated", parseInt(created, 10) + 1);
     }
 }
 
@@ -558,10 +641,17 @@ async function renderMyEvents() {
             let dateend = myevents.data.result[event].dateend.split("-");
             let datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0] + " - " +
                 months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
-            appendstr = appendstr + `<div class="event-card">
+            if (myevents.data.result[event].created == "true") {
+                appendstr = appendstr + `<div class="event-card">
+                <div class="event-head"><b>${myevents.data.result[event].title}</b>:  ${datestr}</div>
+                <div class="event-notes"><p>${myevents.data.result[event].notes}</p><br><button class="editnotes button">EDIT NOTES</<button></div>
+                </div>`
+            } else {
+                appendstr = appendstr + `<div class="event-card">
             <div class="event-head"><b>${myevents.data.result[event].title}</b>:  ${datestr}</div>
             <div class="event-notes"><p>${myevents.data.result[event].notes}</p><br><button class="removenotes button">REMOVE</button><button class="editnotes button">EDIT NOTES</<button></div>
             </div>`
+            }
         })
 
         $(".event-container").replaceWith(`<div class="event-container">${appendstr}</div>`);
@@ -579,7 +669,7 @@ async function renderEdit() {
             "Authorization": "Bearer " + jwt
         },
     })
-    $(".eventtitleinput").replaceWith(`<input type="text" class="eventtitleinput" value="${name}">`)
+    $(".title").replaceWith(`<h1 class="title">${name}</h1>`)
     $(".backgroundimage").replaceWith(`<input type="text" class="backgroundimage" value=${results.data.result.image}>`)
     $(".dateinput").replaceWith(`<div class="dateinput"><input type="date" class="datestart" value="${results.data.result.datestart}"> to <input type="date" class="dateend" value="${results.data.result.dateend}"></div>`)
     $(".addressinput").replaceWith(`<input type="text" class="addressinput" placeholder="Where is your event? (Please input a valid address)" value="${results.data.result.address}">`)
@@ -590,6 +680,8 @@ async function renderEdit() {
         <input type="radio" class="radio" name="type" value="private" checked>Private
     </div>`)
     }
+    window.localStorage.setItem("p", results.data.result.p);
+    console.log(window.localStorage.getItem("p"));
 }
 
 function renderEditNotes() {
@@ -635,6 +727,45 @@ async function deleteMine() {
         },
     });
     target.remove(this);
+
+    let created = window.localStorage.getItem("usercreated");
+    window.localStorage.setItem("usercreated", parseInt(created, 10) - 1);
+}
+
+async function deleteEvent() {
+    let name = window.localStorage.getItem("title")
+    let jwt = window.localStorage.getItem("jwt");
+    // let result = await axios({
+    //     method: 'DELETE',
+    //     url: 'http://localhost:3000/user/events/' + name,
+    //     headers: {
+    //         "Authorization": "Bearer " + jwt
+    //     },
+    // });
+
+    let usercheck = await axios({
+        method: 'GET',
+        url: `http://localhost:3000/user/events`,
+        headers: {
+            "Authorization": "Bearer " + jwt
+        },
+    });
+    if (window.localStorage.getItem("p") == "public") {
+        let result2 = await axios({
+            method: 'DELETE',
+            url: 'http://localhost:3000/public/events/' + name,
+        });
+    }
+    let result3 = await axios({
+        method: 'DELETE',
+        url: 'http://localhost:3000/private/events/' + name,
+        headers: {
+            "Authorization": "Bearer " + jwt
+        },
+    });
+    let created = window.localStorage.getItem("usercreated");
+    window.localStorage.setItem("usercreated", parseInt(created, 10) - 1);
+    window.location.replace("index.html");
 }
 
 window.onload = function () {
@@ -656,6 +787,7 @@ window.onload = function () {
     $(document).on("click", ".submitedit", editNotes);
     $(document).on("click", ".removenotes", deleteMine);
     $(document).on("click", ".updateevent", update);
+    $(document).on("click", ".deleteevent", deleteEvent);
     if (top.location.pathname === '/page.html') {
         renderPage()
     }

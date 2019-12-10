@@ -70,7 +70,7 @@ input[type="submit"] {
 }
 
 .edit,
-.newevent, .add {
+.newevent, .add, .updateevent, .deleteevent {
 
     margin-top: 20px;
     display: block;
@@ -105,7 +105,6 @@ input[type="submit"]:hover {
     font-size: 14px;
 }
 
-.tagbtn,
 .searchbtn {
     display: inline;
     background-color: #fc766aff;
@@ -233,41 +232,9 @@ img {
     padding-bottom: 2%;
 }
 
-/* .tags {
-    padding: 5%;
-    padding-top: 3%;
-    padding-bottom: 3%;
-    color: gray; */
-}
 
 h3 {
     font-size: 2em;
-}
-
-.comments {
-    text-align: center;
-    padding-top: 0.5%;
-}
-
-.comment {
-    background-color: white;
-    width: 80%;
-    text-align: left;
-    margin: auto;
-    padding: 20px 20px;
-    border: 1px solid lightgray;
-
-}
-
-.comment:hover {
-    background-color: lightgray;
-}
-
-.comminput {
-    width: 80%;
-    height: 50px;
-    margin-bottom: 1%;
-    padding-left: 13px;
 }
 
 .submit {
@@ -363,22 +330,11 @@ h3 {
     padding: 15px;
 }
 
-/* .tagadd {
-    margin-top: 0px;
-    margin-bottom: 30px;
-} */
 
 .radiocontainer {
     display: inline;
     font-size: 15px;
 }
-
-/* .imagepreview {
-    width: 80%;
-    border: 1px solid #124653;
-    text-align: center;
-    height: 250px;
-} */
 
 /* search */
 
