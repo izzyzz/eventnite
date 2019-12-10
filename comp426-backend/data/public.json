@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "events": {
         "Food Drive": {
             "title": "Food Drive",
@@ -11,4 +12,21 @@
             "comments": []
         }
     }
+=======
+  "events": {
+    "undefined": {
+      "comments": []
+    },
+    "Public Event 1": {
+      "title": "Public Event 1",
+      "datestart": "2021-12-12",
+      "dateend": "2021-12-12",
+      "image": "https://www.pasadenastarnews.com/wp-content/uploads/2019/03/iStock-999985068-1.jpg",
+      "address": "Chapel Hill, NC",
+      "description": "Public event description",
+      "p": "public",
+      "comments": []
+    }
+  }
+>>>>>>> 06fe174ceb9ecc99192d0444453343b01f770f32
 }

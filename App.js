@@ -184,42 +184,73 @@ async function createEvent() {
     let body = $(this).parent().parent();
     let rtitle = body.find('.title').find('.eventtitleinput').val();
     let rimage = container.find('.backgroundimage').val();
-    let rp = container.find('.radiocontainer').find('.radio').val()
+    let rp = container.find('.radiocontainer').find("input[class='radio']:checked").val();
     let rdatestart = container.find('.datestart').val();
     let rdateend = container.find('.dateend').val();
     let raddress = container.find('.addressinput').val();
     let rdescription = container.find('.descriptioninput').val();
 
-    let dataobj = {
-        title: rtitle,
-        datestart: rdatestart,
-        dateend: rdateend,
-        image: rimage,
-        address: raddress,
-        description: rdescription,
-        p: rp,
-        comments: []
+    //if event is private it is only in private store
+    if (rp == "private" && window.localStorage.getItem("loggedin") == "true") {
+        console.log("hi");
+        let a = await axios({
+            method: 'POST',
+            url: `http://localhost:3000/private/events/${rtitle}`,
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("jwt")
+            },
+            data: {
+                data: {
+                    title: rtitle,
+                    datestart: rdatestart,
+                    dateend: rdateend,
+                    image: rimage,
+                    address: raddress,
+                    description: rdescription,
+                    p: rp,
+                    comments: [],
+                }
+            }
+        })
+    } else {
+        //if event is public it is in both data stores
+        let b = await axios({
+            method: 'POST',
+            url: `http://localhost:3000/public/events/${rtitle}`,
+            data: {
+                data: {
+                    title: rtitle,
+                    datestart: rdatestart,
+                    dateend: rdateend,
+                    image: rimage,
+                    address: raddress,
+                    description: rdescription,
+                    p: rp,
+                    comments: [],
+                }
+            }
+        });
+        let c = await axios({
+            method: 'POST',
+            url: `http://localhost:3000/private/events/${rtitle}`,
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("jwt")
+            },
+            data: {
+                data: {
+                    title: rtitle,
+                    datestart: rdatestart,
+                    dateend: rdateend,
+                    image: rimage,
+                    address: raddress,
+                    description: rdescription,
+                    p: rp,
+                    comments: [],
+                }
+            }
+        })
     }
 
-    console.log(dataobj);
-
-    let baseurl = "http://localhost:3000/" + rp + "/events/" + rtitle;
-    let result = await axios({
-        method: 'POST',
-        url: baseurl,
-        data: {
-            data: {
-                title: rtitle,
-                datestart: rdatestart,
-                dateend: rdateend,
-                image: rimage,
-                address: raddress,
-                description: rdescription,
-                p: rp,
-                comments: [],
-            }
-        }
-    });
 
 
 }
@@ -241,26 +272,6 @@ async function createEvent() {
 
 // }
 
-
-async function test() {
-    let jwt = window.localStorage.getItem("jwt");
-    let results = await axios({
-        method: 'GET',
-        url: "http://localhost:3000/private/events/",
-        headers: {
-            "Authorization": "Bearer " + jwt
-        },
-    })
-    console.log(results);
-}
-async function test2() {
-    let results = await axios({
-        method: 'GET',
-        url: "http://localhost:3000/public/events/",
-
-    })
-    console.log(results);
-}
 
 async function getEvent() {
     let name = $(this).text();
