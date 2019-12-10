@@ -6,17 +6,6 @@
         "usercreated": 1
       }
     },
-    "izzy": {
-      "passwordHash": "$2a$10$ZKq6y79G5gLfRXrSxWlTrOhaxdV7Vjo1mPK.KKsCJ5yMZYpqORGAa",
-      "data": {
-        "usercreated": 0
-      }
-    },
-    "hi": {
-      "data": {
-        "usercreated": 0
-      }
-    },
     "bye": {
       "passwordHash": "$2a$10$AHnjLZGzDMhMqGLCSLRYXuxu7orOp9jO6gvcMIB10eW7Nkn23p0Y.",
       "data": {

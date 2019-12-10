@@ -309,7 +309,6 @@ function getEventPage() {
 
 function getEventPageByMine() {
     let name = $(this).find("b").text();
-    console.log(name);
     window.localStorage.setItem("title", name);
     window.location.replace("page.html");
 }
@@ -339,8 +338,9 @@ async function renderPage() {
             },
         })
         let created = status.data.user.data.usercreated;
-        console.log(created);
+        console.log(status.data.user);
         if (created != "0") {
+            //if you have your user events, get your events
             let usercheck = await axios({
                 method: 'GET',
                 url: `http://localhost:3000/user/events`,
@@ -349,13 +349,16 @@ async function renderPage() {
                 },
             });
             let keys = Object.keys(usercheck.data.result);
+            //for each event, if its already your event, don't display add to my event
+            //for each event, if it is already your event, and you created it, allow update.
             keys.forEach((event) => {
                 if (usercheck.data.result[event].title == name) {
                     target.find(".add").css("display", "none");
+                    if (usercheck.data.result[event].created) {
+                        target.find(".image-container").find(".after").find(".edit").css("display", "block");
+                    }
                 }
-                if (usercheck.data.result[event].created == "false") {
-                    target.find(".image-container").find(".after").find(".edit").css("display", "none");
-                }
+
             });
         }
 
@@ -684,7 +687,7 @@ async function renderMyEvents() {
             let dateend = myevents.data.result[event].dateend.split("-");
             let datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0] + " - " +
                 months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
-            if (myevents.data.result[event].created == "true") {
+            if (myevents.data.result[event].created == true) {
                 appendstr = appendstr + `<div class="event-card">
                 <div class="event-head"><b>${myevents.data.result[event].title}</b>:  ${datestr}</div>
                 <div class="event-notes"><p>${myevents.data.result[event].notes}</p><br><button class="editnotes button">EDIT NOTES</<button></div>
@@ -724,7 +727,6 @@ async function renderEdit() {
     </div>`)
     }
     window.localStorage.setItem("p", results.data.result.p);
-    console.log(window.localStorage.getItem("p"));
 }
 
 function renderEditNotes() {
@@ -851,6 +853,11 @@ async function deleteEvent() {
     window.location.replace("index.html");
 }
 
+function handleCancel() {
+    window.location.replace("page.html");
+}
+
+
 window.onload = function () {
     $(document).on("click", ".newuser", loadCreateAccount);
     $(document).on("click", ".createaccount", createAccount);
@@ -871,6 +878,7 @@ window.onload = function () {
     $(document).on("click", ".removenotes", deleteMine);
     $(document).on("click", ".updateevent", update);
     $(document).on("click", ".deleteevent", deleteEvent);
+    $(document).on("click", ".cancelupdate", handleCancel);
     if (top.location.pathname === '/page.html') {
         renderPage()
     }

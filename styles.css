@@ -79,6 +79,10 @@ input[type="submit"] {
     margin-bottom: 30px;
 }
 
+.edit {
+    display: none;
+}
+
 .button:hover,
 input[type="submit"]:hover {
     background-color: rgb(226, 80, 67);
