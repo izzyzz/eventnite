@@ -1,10 +1,3 @@
-// import setToken from "./config/Token.js";
-// import getAxiosInstance from "./config/Axios.js";
-
-// const axios = getAxiosInstance('/account');
-// console.log("hi");
-// const axios = getAxiosInstance('/account');
-
 function loadCreateAccount() {
     let target = $(this).parent();
     target.replaceWith(`<div class="logincontainer">
@@ -192,7 +185,6 @@ async function createEvent() {
 
     //if event is private it is only in private store
     if (rp == "private" && window.localStorage.getItem("loggedin") == "true") {
-        console.log("hi");
         let a = await axios({
             method: 'POST',
             url: `http://localhost:3000/private/events/${rtitle}`,
@@ -250,6 +242,30 @@ async function createEvent() {
             }
         })
     }
+    if (window.localStorage.getItem("loggedin") == "true") {
+        let d = await axios({
+            method: 'POST',
+            url: `http://localhost:3000/user/events/${rtitle}`,
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("jwt")
+            },
+            data: {
+                data: {
+                    title: rtitle,
+                    datestart: rdatestart,
+                    dateend: rdateend,
+                    notes: ""
+                }
+            }
+        })
+        let created = window.localStorage.getItem("usercreated")
+        console.log(created);
+        if (created == null) {
+            window.localStorage.setItem("usercreated", 1);
+        } else {
+            window.localStorage.setItem("usercreated", parseInt(created, 10) + 1);
+        }
+    }
 
 
 
@@ -272,42 +288,25 @@ async function createEvent() {
 
 // }
 
-
-async function getEvent() {
+function getEventPageBySearch() {
     let name = $(this).text();
-
-    let jwt = window.localStorage.getItem("jwt");
-    let loggedin = window.localStorage.getItem("loggedin");
-    if (loggedin == "true") {
-        let results = await axios({
-            method: 'GET',
-            url: `http://localhost:3000/private/events/${name}`,
-            headers: {
-                "Authorization": "Bearer " + jwt
-            },
-        })
-
-        window.localStorage.setItem("title", name);
-        window.localStorage.setItem("desc", results.data.result.description);
-        window.location.replace("page.html");
-    } else {
-        let results = await axios({
-            method: 'GET',
-            url: `http://localhost:3000/public/events/${name}`,
-        })
-        window.localStorage.setItem("title", name);
-        window.localStorage.setItem("desc", results.data.result.description);
-
-        window.location.replace("page.html");
-
-    }
-
+    window.localStorage.setItem("title", name);
+    window.location.replace("page.html");
 }
 
-async function getEventPage() {
+function getEventPage() {
     let name = $(this).find("h2").text();
+    window.localStorage.setItem("title", name);
+    window.location.replace("page.html");
+}
+
+async function renderPage() {
+    let name = window.localStorage.getItem("title");
     let jwt = window.localStorage.getItem("jwt");
     let loggedin = window.localStorage.getItem("loggedin");
+    let target = $(".page-body");
+    let result = []
+    let months = ["", "Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     if (loggedin == "true") {
         let results = await axios({
             method: 'GET',
@@ -315,30 +314,49 @@ async function getEventPage() {
             headers: {
                 "Authorization": "Bearer " + jwt
             },
-        })
+        });
+        result = results.data.result;
+        target.find(".add").css("display", "block");
+        if (window.localStorage.getItem("usercreated") != null || window.localStorage.getItem("usercreated") != 0) {
+            let usercheck = await axios({
+                method: 'GET',
+                url: `http://localhost:3000/user/events/`,
+                headers: {
+                    "Authorization": "Bearer " + jwt
+                },
+            });
 
-        window.localStorage.setItem("title", name);
-        window.localStorage.setItem("desc", results.data.result.description);
-        window.location.replace("page.html");
+            let usercheckarr = usercheck.data.result;
+            for (let i = 0; i < usercheckarr.length; i++) {
+                if (usercheckarr[i] == name) {
+                    target.find(".add").css("display", "none");
+                }
+            }
+        }
+
     } else {
         let results = await axios({
             method: 'GET',
             url: `http://localhost:3000/public/events/${name}`,
-        })
-        window.localStorage.setItem("title", name);
-        window.localStorage.setItem("desc", results.data.result.description);
-
-        window.location.replace("page.html");
-
+        });
+        result = results.data.result;
+        target.find(".add").css("display", "none");
     }
 
-}
-
-function renderPage() {
-    let name = window.localStorage.getItem("title")
-    let desc = window.localStorage.getItem("desc")
-    $("#eventtitle").html(`${name}`)
-    $(".description").html(`${desc}`)
+    let datestart = result.datestart.split("-");
+    let dateend = result.datestart.split("-");
+    let datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0] + " - " +
+        months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
+    target.find(".image-container").find("img").attr('src', result.image);
+    target.find(".image-container").find(".after").find("#eventtitle").text(result.title);
+    target.find(".image-container").find(".after").find(".datetitle").text(datestr);
+    target.find(".descriptioncontainer").find(".textdescription").text(result.description);
+    target.find(".descriptioncontainer").find(".textaddress").text(result.address);
+    let commentstr = ""
+    for (let i = 0; i < result.comments.length; i++) {
+        commentstr = commentstr + `<div class="comment">${result.comments[i]}</div>`;
+    }
+    target.find(".comments").find(".comments-container").replaceWith(`<div class="comments-container">${commentstr}</div>`);
 }
 
 async function renderEvents() {
@@ -377,6 +395,10 @@ async function renderEvents() {
 
 }
 
+async function addMyEvent() {
+
+}
+
 
 window.onload = function () {
     $(document).on("click", ".newuser", loadCreateAccount);
@@ -387,14 +409,15 @@ window.onload = function () {
     $(document).on("click", ".logout", logout);
     $(document).on("click", ".newevent", createEvent);
     $(document).on("input", ".searchevents", searchevents);
-    $(document).on("click", "li", getEvent);
+    $(document).on("click", "li", getEventPageBySearch);
     $(document).on("click", ".event", getEventPage);
     renderPage()
     renderEvents()
     checkLoggedIn();
+    console.log(window.localStorage.getItem("usercreated"));
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {
-        $(".login").replaceWith('<a class="account button" href="calendar.html">ACCOUNT</a>');
+        $(".login").replaceWith('<a class="account button" href="myevents.html">ACCOUNT</a>');
         $(".neweventdiv").replaceWith(`<div class="neweventdiv"><a class="newevent button" href="newevent.html">CREATE EVENT</a></div>`);
     } else {
         $(".account").replaceWith('<a class="login button" href="login.html">LOGIN</a>')

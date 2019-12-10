@@ -1,8 +1,5 @@
 {
   "events": {
-    "undefined": {
-      "comments": []
-    },
     "Public Event 1": {
       "title": "Public Event 1",
       "datestart": "2021-12-12",
@@ -10,6 +7,19 @@
       "image": "https://www.pasadenastarnews.com/wp-content/uploads/2019/03/iStock-999985068-1.jpg",
       "address": "Chapel Hill, NC",
       "description": "Public event description",
+      "p": "public",
+      "comments": []
+    },
+    "undefined": {
+      "comments": []
+    },
+    "My event 5": {
+      "title": "My event 5",
+      "datestart": "2019-12-12",
+      "dateend": "2019-12-12",
+      "image": "https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      "address": "Chapel Hill, NC",
+      "description": "omg plz work",
       "p": "public",
       "comments": []
     }

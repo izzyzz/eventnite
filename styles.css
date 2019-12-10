@@ -69,12 +69,13 @@ input[type="submit"] {
 }
 
 .edit,
-.newevent {
+.newevent, .add {
 
     margin-top: 20px;
     display: block;
     margin: auto;
     width: 150px;
+    margin-bottom: 30px;
 }
 
 .button:hover,
@@ -169,6 +170,8 @@ h4 {
 img {
     width: 100%;
     height: 500px;
+    filter: brightness(65%);
+    opacity: 0.9;
 }
 
 .image-container {
@@ -212,15 +215,20 @@ img {
     margin: 0px;
 }
 
-.description {
-    padding: 5%;
+.description, .address {
+    padding: 7%;
     padding-bottom: 0;
+    padding-top: 2%;
 }
 
-.text {
-    padding: 5%;
+.textdescription, .textaddress {
+    padding: 7%;
     padding-bottom: 0;
     padding-top: 0;
+}
+
+.textaddress {
+    padding-bottom: 2%;
 }
 
 /* .tags {
@@ -363,12 +371,14 @@ h3 {
     font-size: 15px;
 }
 
-.imagepreview {
+/* .imagepreview {
     width: 80%;
     border: 1px solid #124653;
     text-align: center;
     height: 250px;
-}
+} */
+
+/* search */
 
 .results * {
     background-color: white;
@@ -384,4 +394,42 @@ h3 {
 
 .results *:hover {
     background-color: rgb(192, 192, 192);
+}
+
+/* user */
+.event-container {
+    width: 60%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.event-card {
+    border: 1px solid white;
+    border-radius: 10px;
+    height: 300px;
+    margin-bottom: 50px;
+}
+
+.event-head {
+    background-color: rgb(252, 118, 106);
+    border-radius: 10px 10px 0px 0px;
+    color: white;
+    height: 13%;
+    padding: 20px 10px 0px 15px;
+}
+
+.event-head:hover{
+    background-color: rgb(226, 80, 67);
+}
+
+.event-notes:hover {
+    background-color: rgb(235, 235, 235);
+}
+
+.event-notes {
+    background-color: white;
+    border-radius: 0px 0px 10px 10px;
+    height: 76%;
+    padding: 15px 10px 0px 15px;
+    
 }
