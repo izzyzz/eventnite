@@ -1,28 +1,3 @@
 {
-  "users": {
-    "test": {
-      "passwordHash": "$2a$10$xdRJAf/wqvQWwB9dSMqLR.mxNkKkpsMiG8fB6jQpfYsxHD08eIVSK"
-    },
-    "testghjkl;": {
-      "passwordHash": "$2a$10$1U1MRuW.JaRyfxiIXrMf2eXk6d2otgtKwW/RazrRiknGe0JxuCoQu"
-    },
-    "testhckjvdbjdh ": {
-      "passwordHash": "$2a$10$DE.vDV437.5WeRvtK.rODOj7vUVge8aM8UReeE9.2nrSMdmHzey22"
-    },
-    "hjk": {
-      "passwordHash": "$2a$10$H2kl7B07HabbYRO4vfYPYOQQmFAvFSrVS6NrbfgrDBJ7KbclsWj32"
-    },
-    "hannah": {
-      "passwordHash": "$2a$10$8yfadK3NYY31jyNpH8Vgbejh63f4pSAgADlpkuAyxX9H8LOxsYUnq"
-    },
-    "izzy": {
-      "passwordHash": "$2a$10$qojriV/n1xqoMn2V2yJWfOpbhfKpNA98jnxTQB2BFjBPoM6YbPFVe"
-    },
-    "hannahtest": {
-      "passwordHash": "$2a$10$fVYEbtMa0ToLVzJfktCR6OvHxEd8d1b1BKpoj8vVqPRqB4wxz2Fje"
-    },
-    "hello": {
-      "passwordHash": "$2a$10$/7KMlXpHQVgZrrw1NLkvDeZnC33rYpe/jRcpdbb7XOalaOhGvIf2W"
-    }
-  }
+  "users": {}
 }
