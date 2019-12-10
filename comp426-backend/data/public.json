@@ -1,12 +1,17 @@
 {
   "events": {
-    "title": "r",
-    "datestart": "1999-12-12",
-    "dateend": "1999-12-12",
-    "image": "r",
-    "address": "hi",
-    "description": "hi",
-    "p": "public",
-    "comments": []
+    "undefined": {
+      "comments": []
+    },
+    "Public Event 1": {
+      "title": "Public Event 1",
+      "datestart": "2021-12-12",
+      "dateend": "2021-12-12",
+      "image": "https://www.pasadenastarnews.com/wp-content/uploads/2019/03/iStock-999985068-1.jpg",
+      "address": "Chapel Hill, NC",
+      "description": "Public event description",
+      "p": "public",
+      "comments": []
+    }
   }
 }

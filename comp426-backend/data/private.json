@@ -1,10 +1,24 @@
 {
-    "events": {
-        "Private event 1": {},
-        "Private event 2": {},
-        "NC State Fair": {},
-        "Izzy's Birthday Party": {},
-        "Public event 1": {},
-        "Public event 2": {}
+  "events": {
+    "Public Event 1": {
+      "title": "Public Event 1",
+      "datestart": "2021-12-12",
+      "dateend": "2021-12-12",
+      "image": "https://www.pasadenastarnews.com/wp-content/uploads/2019/03/iStock-999985068-1.jpg",
+      "address": "Chapel Hill, NC",
+      "description": "Public event description",
+      "p": "public",
+      "comments": []
+    },
+    "Private Event 1": {
+      "title": "Private Event 1",
+      "datestart": "2020-12-03",
+      "dateend": "2020-12-04",
+      "image": "https://www.pasadenastarnews.com/wp-content/uploads/2019/03/iStock-999985068-1.jpg",
+      "address": "Chapel Hill, NC",
+      "description": "Private event description",
+      "p": "private",
+      "comments": []
     }
+  }
 }
