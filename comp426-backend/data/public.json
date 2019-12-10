@@ -1,18 +1,4 @@
 {
-<<<<<<< HEAD
-    "events": {
-        "Food Drive": {
-            "title": "Food Drive",
-            "datestart": "2020-01-04",
-            "dateend": "2020-01-11",
-            "image": "https://www.moveforhunger.org/wp-content/uploads/UniversityMovingAndStorage_FarmingtonHillsFoodDrive2016-1.jpg",
-            "address": "209 South Rd, Chapel Hill, NC 27599",
-            "description": "Bring food to donate to the homeless shelter.",
-            "p": "public",
-            "comments": []
-        }
-    }
-=======
   "events": {
     "Public Event 1": {
       "title": "Public Event 1",
@@ -21,22 +7,51 @@
       "image": "https://www.pasadenastarnews.com/wp-content/uploads/2019/03/iStock-999985068-1.jpg",
       "address": "Chapel Hill, NC",
       "description": "Public event description",
-      "p": "public",
-      "comments": []
-    },
-    "undefined": {
-      "comments": []
-    },
-    "My event 5": {
-      "title": "My event 5",
-      "datestart": "2019-12-12",
-      "dateend": "2019-12-12",
-      "image": "https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      "address": "Chapel Hill, NC",
-      "description": "omg plz work",
-      "p": "public",
-      "comments": []
+      "12": {
+        "title": "12",
+        "datestart": "1212-12-12",
+        "dateend": "1222-12-12",
+        "image": "12",
+        "address": "12",
+        "description": "12",
+        "p": "public",
+        "comments": []
+      },
+      "undefined": {
+        "comments": []
+      },
+      "Picnic at the Park": {
+        "title": "Picnic at the Park",
+        "datestart": "2020-05-30",
+        "dateend": "2020-05-30",
+        "image": "https://cdn.jamieoliver.com/home/wp-content/uploads/2015/06/perfectpicnicheader_630x420.jpg",
+        "address": "Pullen Park",
+        "description": "Bring a dish for a picnic in the park!",
+        "p": "public",
+        "comments": []
+      },
+      "Ice Skating": {
+        "title": "Ice Skating",
+        "datestart": "2019-12-31",
+        "dateend": "",
+        "image": "https://cdn.choosechicago.com/uploads/2019/05/unique-skating-rinks-1800x900.jpg",
+        "address": "Rockefeller Center",
+        "description": "Skate rental - $5",
+        "p": "public",
+        "comments": []
+      },
+      "undefined": {
+        "comments": []
+      },
+      "My event 5": {
+        "title": "My event 5",
+        "datestart": "2019-12-12",
+        "dateend": "2019-12-12",
+        "image": "https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        "address": "Chapel Hill, NC",
+        "description": "omg plz work",
+        "p": "public",
+        "comments": []
+      }
     }
   }
->>>>>>> 06fe174ceb9ecc99192d0444453343b01f770f32
-}

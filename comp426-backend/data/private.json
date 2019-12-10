@@ -1,5 +1,15 @@
 {
   "events": {
+    "12": {
+      "title": "12",
+      "datestart": "1212-12-12",
+      "dateend": "1222-12-12",
+      "image": "12",
+      "address": "12",
+      "description": "12",
+      "p": "public",
+      "comments": []
+    },
     "Public Event 1": {
       "title": "Public Event 1",
       "datestart": "2021-12-12",
@@ -78,7 +88,26 @@
       "address": "Chapel Hill, NC",
       "description": "Please be the last one",
       "p": "private",
-      "comments": []
+      "Picnic at the Park": {
+        "title": "Picnic at the Park",
+        "datestart": "2020-05-30",
+        "dateend": "2020-05-30",
+        "image": "https://cdn.jamieoliver.com/home/wp-content/uploads/2015/06/perfectpicnicheader_630x420.jpg",
+        "address": "Pullen Park",
+        "description": "Bring a dish for a picnic in the park!",
+        "p": "public",
+        "comments": []
+      },
+      "Ice Skating": {
+        "title": "Ice Skating",
+        "datestart": "2019-12-31",
+        "dateend": "",
+        "image": "https://cdn.choosechicago.com/uploads/2019/05/unique-skating-rinks-1800x900.jpg",
+        "address": "Rockefeller Center",
+        "description": "Skate rental - $5",
+        "p": "public",
+        "comments": []
+      }
     }
   }
 }
