@@ -32,9 +32,11 @@ router.get('/status', authenticateUser, function (req, res) {
 router.post('/users', authenticateUser, function (req, res) {
   let name = req.body.name;
   let pwd = req.body.pass;
-  accountStore.set(`users.${name}`, {
-    pass: pwd,
-    data: req.body.data
+  bcrypt.hash(pass, saltRounds, (err, hash) => {
+    accountStore.set(`users.${name}`, {
+      passwordHash: hash,
+      data: req.body.data
+    });
   });
 })
 

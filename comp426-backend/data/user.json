@@ -30,5 +30,16 @@
         "notes": ""
       }
     }
+  },
+  "hoss": {
+    "events": {
+      "COMP 426 Finals": {
+        "title": "COMP 426 Finals",
+        "created": false,
+        "datestart": "2019-12-12",
+        "dateend": "2019-12-12",
+        "notes": ""
+      }
+    }
   }
 }
