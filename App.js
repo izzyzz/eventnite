@@ -493,6 +493,7 @@ async function update() {
         },
     });
 }
+
 async function addMyEvent() {
     let rtitle = $(this).parent().find(".image-container").find(".after").find("#eventtitle").text();
     let date = $(this).parent().find(".image-container").find(".after").find(".datetitle").text();
@@ -512,8 +513,8 @@ async function addMyEvent() {
         "Nov": 11,
         "Dec": 12
     }
-    let start = months[s[0]] + "-" + s[1].slice(0, s.length - 1) + "-" + s[2];
-    let end = months[e[0]] + "-" + e[1].slice(0, s.length - 1) + "-" + e[2];;
+    let start = s[2] + "-" + months[s[0]] + "-" + s[1].slice(0, s.length - 1);
+    let end = e[2] + "-" + months[e[0]] + "-" + e[1].slice(0, s.length - 1);
 
     if (window.localStorage.getItem("loggedin") == "true") {
         let d = await axios({
@@ -583,6 +584,50 @@ function renderEdit() {
     }
 }
 
+function renderEditNotes() {
+    let target = $(this).parent();
+    let text = $(this).parent().find("p").text();
+    target.replaceWith(`<div class="event-notes"><textarea class=${text}>${text}</textarea><br><button class="submitedit button">EDIT</button><button class="canceledit button">CANCEL</<button></div>`)
+}
+
+function renderCancelEdit() {
+    let target = $(this).parent();
+    let text = $(this).parent().find("textarea").attr("class");
+    target.replaceWith(`<div class="event-notes"><p>${text}</p><br><button class="removenotes button">REMOVE</button><button class="editnotes button">EDIT NOTES</<button></div>`)
+}
+
+async function editNotes() {
+    let target = $(this).parent();
+    let name = $(this).parent().parent().find("b").text();
+    let text = $(this).parent().find("textarea").val();
+    let jwt = window.localStorage.getItem("jwt");
+    let result = await axios({
+        method: 'POST',
+        url: 'http://localhost:3000/user/events/' + name + '/notes',
+        data: {
+            data: text
+        },
+        headers: {
+            "Authorization": "Bearer " + jwt
+        },
+    });
+    target.replaceWith(`<div class="event-notes"><p>${text}</p><br><button class="removenotes button">REMOVE</button><button class="editnotes button">EDIT NOTES</<button></div>`);
+
+}
+
+async function deleteMine() {
+    let target = $(this).parent().parent();
+    let name = $(this).parent().parent().find("b").text();
+    let jwt = window.localStorage.getItem("jwt");
+    let result = await axios({
+        method: 'DELETE',
+        url: 'http://localhost:3000/user/events/' + name,
+        headers: {
+            "Authorization": "Bearer " + jwt
+        },
+    });
+    target.remove(this);
+}
 
 window.onload = function () {
     $(document).on("click", ".newuser", loadCreateAccount);
@@ -598,13 +643,19 @@ window.onload = function () {
     $(document).on("click", ".event-head", getEventPageByMine);
     $(document).on("click", ".edit", getEditPage);
     $(document).on("click", ".add", addMyEvent);
+    $(document).on("click", ".editnotes", renderEditNotes);
+    $(document).on("click", ".canceledit", renderCancelEdit);
+    $(document).on("click", ".submitedit", editNotes);
+    $(document).on("click", ".removenotes", deleteMine);
     if (top.location.pathname === '/page.html') {
         renderPage()
     }
     if (top.location.pathname === '/myevents.html') {
         renderMyEvents()
     }
-    renderEvents()
+    if (top.location.pathname == "/" || top.location.pathname == "/index.html") {
+        renderEvents()
+    }
     if (top.location.pathname === '/updateevent.html') {
         renderEdit()
     }

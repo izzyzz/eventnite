@@ -436,16 +436,25 @@ h3 {
     
 }
 
-.editnotes, .removenotes {
+.editnotes, .removenotes, .submitedit, .canceledit {
     float: right;
     margin-right: 5px;
     margin-top: 0px;
 }
 
-.event-notes p {
-    height: 67%;
+.event-notes p, textarea {
+    height: 60%;
     margin-top: 0px;
     margin-bottom: 0px;
     margin-right: 5px;
     border: 1px solid #124653;
+    padding: 10px;
+    font-size: 14px;
+}
+
+textarea {
+    width: 100%;
+    margin-bottom: 20px;
+    height: 69%;
+    font-family: Montserrat;
 }

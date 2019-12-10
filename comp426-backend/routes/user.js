@@ -70,4 +70,3 @@ router.post('/events/*', function (req, res) {
   })
 
 });
-
