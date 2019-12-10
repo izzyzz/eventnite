@@ -372,6 +372,7 @@ async function renderPage() {
     target.find(".image-container").find(".after").find(".datetitle").text(datestr);
     target.find(".descriptioncontainer").find(".textdescription").text(result.description);
     target.find(".descriptioncontainer").find(".textaddress").text(result.address);
+    //take result.address (which is the address), and make a map using it. you need to put it in the div <div class="map"></div> 
 }
 
 async function renderEvents() {
