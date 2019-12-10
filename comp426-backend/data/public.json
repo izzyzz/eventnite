@@ -1,3 +1,84 @@
 {
-  "events": {}
+  "events": {
+    "Picnic at the Park": {
+      "title": "Picnic at the Park",
+      "datestart": "2020-05-30",
+      "dateend": "2020-05-30",
+      "image": "https://cdn.jamieoliver.com/home/wp-content/uploads/2015/06/perfectpicnicheader_630x420.jpg",
+      "address": "Pullen Park",
+      "description": "Bring a dish for a picnic in the park!",
+      "p": "public",
+      "comments": []
+    },
+    "Ice Skating": {
+      "title": "Ice Skating",
+      "datestart": "2019-12-31",
+      "dateend": "",
+      "image": "https://cdn.choosechicago.com/uploads/2019/05/unique-skating-rinks-1800x900.jpg",
+      "address": "Rockefeller Center",
+      "description": "Skate rental - $5",
+      "p": "public",
+      "comments": []
+    },
+    "TEST": {
+      "title": "TEST",
+      "datestart": "2019-12-11",
+      "dateend": "2019-12-19",
+      "image": "https://www.uhs.umich.edu/files/uhs/field/image/TEST.jpg",
+      "address": "TESTING",
+      "description": "123",
+      "p": "public",
+      "comments": []
+    },
+    "Public Event 1": {
+      "title": "Public Event 1",
+      "datestart": "2021-12-12",
+      "dateend": "2021-12-12",
+      "image": "https://www.pasadenastarnews.com/wp-content/uploads/2019/03/iStock-999985068-1.jpg",
+      "address": "Chapel Hill, NC",
+      "description": "Public event description updated",
+      "p": "private",
+      "comments": []
+    },
+    "My Event": {
+      "title": "My Event ",
+      "datestart": "2020-01-01",
+      "dateend": "2020-01-02",
+      "image": "https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg",
+      "address": "Charlotte, NC",
+      "description": "Test for user event update",
+      "p": "private",
+      "comments": []
+    },
+    "undefined": {},
+    "Our event": {
+      "title": "Our event",
+      "datestart": "0019-12-10",
+      "dateend": "2019-12-10",
+      "image": "https://faculty.washington.edu/ajko/books/uist/images/human-hands.jpg",
+      "address": "Izzy's apartment",
+      "description": "I hope this works",
+      "p": "public",
+      "comments": []
+    },
+    "Pie Eating Contest": {
+      "title": "Pie Eating Contest",
+      "datestart": "2019-12-12",
+      "dateend": "2019-12-12",
+      "image": "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2011/10/5/0/FNM_110111-Insert-019_s4x3.jpg.rend.hgtvcom.1280.960.suffix/1371600342161.jpeg",
+      "address": "UNC Student Union",
+      "description": "Its a pie eating competition",
+      "p": "public",
+      "comments": []
+    },
+    "Chapel Hill": {
+      "title": "Chapel Hill",
+      "datestart": "2019-12-10",
+      "dateend": "2019-12-10",
+      "image": "No image",
+      "address": "Chapel Hill, NC",
+      "description": "Its in Chapel Hill",
+      "p": "public"
+    }
+  }
 }

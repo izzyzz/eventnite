@@ -1,3 +1,13 @@
 {
-  "events": {}
+  "events": {
+    "Chapel Hill": {
+      "title": "Chapel Hill",
+      "datestart": "2019-12-10",
+      "dateend": "2019-12-10",
+      "image": "No image",
+      "address": "Chapel Hill, NC",
+      "description": "Its in Chapel Hill",
+      "p": "public"
+    }
+  }
 }

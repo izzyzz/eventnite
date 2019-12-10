@@ -1,1 +1,13 @@
-{}
+{
+  "izzy": {
+    "events": {
+      "Chapel Hill": {
+        "title": "Chapel Hill",
+        "created": true,
+        "datestart": "2019-12-10",
+        "dateend": "2019-12-10",
+        "notes": ""
+      }
+    }
+  }
+}

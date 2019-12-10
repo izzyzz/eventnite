@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css" />
+
     <title>EventNite</title>
 </head>
 
@@ -34,9 +37,11 @@
     <div class="addresscontainer">
         <p class="address"></p>
     </div>
+    <div id="map"></div>
+
     <button class="add button">ADD TO MY EVENTS</button>
     <hr>
-    <div class="map"></div>
+
 
     <script type="module" src="App.js"></script>
     <script src="node_modules/axios/dist/axios.js"></script>

@@ -372,7 +372,16 @@ async function renderPage() {
     target.find(".image-container").find(".after").find(".datetitle").text(datestr);
     target.find(".descriptioncontainer").find(".textdescription").text(result.description);
     target.find(".descriptioncontainer").find(".textaddress").text(result.address);
-    //take result.address (which is the address), and make a map using it. you need to put it in the div <div class="map"></div> 
+
+    L.mapquest.key = 'OPrIvojYLYrQph7GkvJM1Ai0iPAt2AQw';
+    var map = L.mapquest.map('map', {
+        center: [0, 0],
+        layers: L.mapquest.tileLayer('map'),
+        zoom: 14
+    });
+
+    L.mapquest.geocoding().geocode(result.address);
+
 }
 
 async function renderEvents() {
