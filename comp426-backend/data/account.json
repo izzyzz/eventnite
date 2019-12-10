@@ -1,16 +1,1 @@
-{
-  "users": {
-    "hannah": {
-      "passwordHash": "$2a$10$aqEXwTTCtPWAKGI0DggRX.RpGYSc6wWFjRNDVhaZPmJ4MY/kna15a",
-      "data": {
-        "usercreated": 1
-      }
-    },
-    "hoss": {
-      "passwordHash": "$2a$10$t8G21MCP1jRiJ4SHmOdqluluYHLK3g2uii/fK6SLDZnvfX3D/jchi",
-      "data": {
-        "usercreated": 0
-      }
-    }
-  }
-}
+{}
