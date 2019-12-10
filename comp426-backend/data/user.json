@@ -7,27 +7,12 @@
         "datestart": "2019-12-12",
         "dateend": "2019-12-12",
         "notes": "Remember to make the video and poster"
-      }
-    }
-  },
-  "izzy": {
-    "events": {
-      "COMP 426 Finals": {
-        "title": "COMP 426 Finals",
-        "created": false,
-        "datestart": "2019-12-12",
-        "dateend": "2019-12-12",
-        "notes": ""
       },
       "Public Picnic": {
         "title": "Public Picnic",
         "created": true,
         "datestart": "2020-03-04",
         "dateend": "2020-03-04",
-        "notes": ""
-      },
-      "undefined": {
-        "created": true,
         "notes": ""
       },
       "Ice Skating": {

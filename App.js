@@ -445,7 +445,7 @@ async function renderEvents() {
             let datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0] + " - " +
                 months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
             $(".container").append(`<div class="event">
-            <div class=image style="background-image: url(${results2.data.result[result].image})";></div>
+            <div class=image style="background-image: url('${results2.data.result[result].image}')";></div>
             <h2 class="title">${result}</h2>
             <hr></hr>
             <p class="date">${datestr}</p>
