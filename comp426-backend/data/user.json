@@ -42,6 +42,18 @@
         "datestart": "12-12-2021",
         "dateend": "12-12-2021",
         "notes": ""
+      },
+      "Our event": {
+        "title": "Our event",
+        "datestart": "0019-12-10",
+        "dateend": "2019-12-10",
+        "notes": ""
+      },
+      "Pie Eating Contest": {
+        "title": "Pie Eating Contest",
+        "datestart": "2019-12-12",
+        "dateend": "2019-12-12",
+        "notes": ""
       }
     }
   }

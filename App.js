@@ -266,8 +266,8 @@ async function createEvent() {
             window.localStorage.setItem("usercreated", parseInt(created, 10) + 1);
         }
     }
-
-
+    window.localStorage.setItem("title", rtitle);
+    window.location.replace("page.html");
 
 }
 
@@ -341,14 +341,7 @@ async function renderPage() {
             }
         }
 
-        // window.localStorage.setItem("title", name);
-        // window.localStorage.setItem("desc", results.data.result.description);
-        // window.localStorage.setItem("startdate", results.data.result.datestart);
-        // window.localStorage.setItem("enddate", results.data.result.dateend);
-        // window.localStorage.setItem("pic", results.data.image);
-        // window.localStorage.setItem("addy", results.data.address);
 
-        // window.location.replace("page.html");
     } else {
         let results = await axios({
             method: 'GET',
@@ -445,46 +438,38 @@ async function getEditPage() {
         })
 
         window.localStorage.setItem("title", name);
-        window.localStorage.setItem("desc", results.data.result.description);
-        window.localStorage.setItem("startdate", results.data.result.datestart);
-        window.localStorage.setItem("p", results.data.result.p);
-        window.localStorage.setItem("enddate", results.data.result.dateend);
-        window.localStorage.setItem("pic", results.data.result.image);
-        window.localStorage.setItem("addy", results.data.result.address);
 
         window.location.replace("updateevent.html");
-    } else {
-        let results = await axios({
-            method: 'GET',
-            url: `http://localhost:3000/public/events/${name}`,
-        })
-        window.localStorage.setItem("title", name);
-        window.localStorage.setItem("desc", results.data.result.description);
-        window.localStorage.setItem("startdate", results.data.result.datestart);
-        window.localStorage.setItem("enddate", results.data.result.dateend);
-        window.localStorage.setItem("p", results.data.result.p);
-        window.localStorage.setItem("pic", results.data.result.image);
-        window.localStorage.setItem("addy", results.data.result.address);
-        window.location.replace("updateevent.html");
-
     }
 
 }
 
 async function update() {
     let jwt = window.localStorage.getItem("jwt");
+    let name = window.localStorage.getItem("title")
+    let datestart = $(".datestart").val()
+    let dateend = $(".dateend").val()
+    let img = $(".backgroundimage").val()
+    let address = $(".addressinput").val()
+    let p;
+    if ($('.public').is(':checked')) {
+        p = "public"
+    } else {
+        p = "private"
+    }
+    let desc = $(".descriptioninput").val()
     let result = await axios({
         method: 'post',
-        url: 'http://localhost:3000/private/events/TEST',
+        url: `http://localhost:3000/private/events/${name}`,
         data: {
             data: {
-                "title": "TEST",
-                "datestart": "1212-12-12",
-                "dateend": "1222-12-12",
-                "image": "12",
-                "address": "12",
-                "description": "15",
-                "p": "public",
+                "title": `${name}`,
+                "datestart": `${datestart}`,
+                "dateend": `${dateend}`,
+                "image": `${img}`,
+                "address": `${address}`,
+                "description": `${desc}`,
+                "p": `${p}`,
                 "comments": []
             }
         },
@@ -492,6 +477,27 @@ async function update() {
             "Authorization": "Bearer " + jwt
         },
     });
+    let result2 = await axios({
+        method: 'post',
+        url: `http://localhost:3000/public/events/${name}`,
+        data: {
+            data: {
+                "title": `${name}`,
+                "datestart": `${datestart}`,
+                "dateend": `${dateend}`,
+                "image": `${img}`,
+                "address": `${address}`,
+                "description": `${desc}`,
+                "p": `${p}`,
+                "comments": []
+            }
+        },
+        headers: {
+            "Authorization": "Bearer " + jwt
+        },
+    });
+
+    window.location.replace("page.html");
 }
 async function addMyEvent() {
     let rtitle = $(this).parent().find(".image-container").find(".after").find("#eventtitle").text();
@@ -561,28 +567,29 @@ async function renderMyEvents() {
     }
 }
 
-function renderEdit() {
+async function renderEdit() {
     let name = window.localStorage.getItem("title")
-    let addy = window.localStorage.getItem("addy")
-    let desc = window.localStorage.getItem("desc")
-    let start = window.localStorage.getItem("startdate")
-    let end = window.localStorage.getItem("enddate")
-    let pic = window.localStorage.getItem("pic")
-    let p = window.localStorage.getItem("p")
-    console.log(name)
+    let jwt = window.localStorage.getItem("jwt");
+
+    let results = await axios({
+        method: 'GET',
+        url: `http://localhost:3000/private/events/${name}`,
+        headers: {
+            "Authorization": "Bearer " + jwt
+        },
+    })
     $(".eventtitleinput").replaceWith(`<input type="text" class="eventtitleinput" value="${name}">`)
-    $(".backgroundimage").replaceWith(`<input type="text" class="backgroundimage" value=${pic}>`)
-    $(".dateinput").replaceWith(`<div class="dateinput"><input type="date" class="datestart" value="${start}"> to <input type="date" class="dateend" value="${end}"></div>`)
-    $(".addressinput").replaceWith(`<input type="text" class="addressinput" placeholder="Where is your event? (Please input a valid address)" value="${addy}">`)
-    $(".descriptioninput").replaceWith(`<input type="text" class="descriptioninput" placeholder="What would you like people to know about your event?" value="${desc}">`)
-    if (p == "private") {
+    $(".backgroundimage").replaceWith(`<input type="text" class="backgroundimage" value=${results.data.result.image}>`)
+    $(".dateinput").replaceWith(`<div class="dateinput"><input type="date" class="datestart" value="${results.data.result.datestart}"> to <input type="date" class="dateend" value="${results.data.result.dateend}"></div>`)
+    $(".addressinput").replaceWith(`<input type="text" class="addressinput" placeholder="Where is your event? (Please input a valid address)" value="${results.data.result.address}">`)
+    $(".descriptioninput").replaceWith(`<input type="text" class="descriptioninput" placeholder="What would you like people to know about your event?" value="${results.data.result.description}">`)
+    if (results.data.result.p == "private") {
         $(".radiocontainer").replaceWith(`<div class="radiocontainer">
         <input type="radio" class="radio" name="type" value="public">Public
         <input type="radio" class="radio" name="type" value="private" checked>Private
     </div>`)
     }
 }
-
 
 window.onload = function () {
     $(document).on("click", ".newuser", loadCreateAccount);
@@ -598,6 +605,7 @@ window.onload = function () {
     $(document).on("click", ".event-head", getEventPageByMine);
     $(document).on("click", ".edit", getEditPage);
     $(document).on("click", ".add", addMyEvent);
+    $(document).on("click", ".updateevent", update);
     if (top.location.pathname === '/page.html') {
         renderPage()
     }
