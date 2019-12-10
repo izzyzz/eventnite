@@ -1,2 +1,42 @@
 {
+  "izzy": {
+    "events": {
+      "My Event": {
+        "title": "My Event ",
+        "datestart": "2020-01-01",
+        "dateend": "2020-01-02",
+        "notes": ""
+      },
+      "My Event 2": {
+        "title": "My Event 2",
+        "datestart": "2020-07-29",
+        "dateend": "2020-08-01",
+        "notes": ""
+      },
+      "My Event 3": {
+        "title": "My Event 3",
+        "datestart": "2020-08-29",
+        "dateend": "2020-09-29",
+        "notes": ""
+      },
+      "My Event 4": {
+        "title": "My Event 4",
+        "datestart": "2019-12-12",
+        "dateend": "2019-12-12",
+        "notes": ""
+      },
+      "My event 5": {
+        "title": "My event 5",
+        "datestart": "2019-12-12",
+        "dateend": "2019-12-12",
+        "notes": ""
+      },
+      "My event 6": {
+        "title": "My event 6",
+        "datestart": "2019-12-13",
+        "dateend": "2019-12-14",
+        "notes": ""
+      }
+    }
+  }
 }

@@ -1,10 +1,3 @@
-// import setToken from "./config/Token.js";
-// import getAxiosInstance from "./config/Axios.js";
-
-// const axios = getAxiosInstance('/account');
-// console.log("hi");
-// const axios = getAxiosInstance('/account');
-
 function loadCreateAccount() {
     let target = $(this).parent();
     target.replaceWith(`<div class="logincontainer">
@@ -192,7 +185,6 @@ async function createEvent() {
 
     //if event is private it is only in private store
     if (rp == "private" && window.localStorage.getItem("loggedin") == "true") {
-        console.log("hi");
         let a = await axios({
             method: 'POST',
             url: `http://localhost:3000/private/events/${rtitle}`,
@@ -250,6 +242,30 @@ async function createEvent() {
             }
         })
     }
+    if (window.localStorage.getItem("loggedin") == "true") {
+        let d = await axios({
+            method: 'POST',
+            url: `http://localhost:3000/user/events/${rtitle}`,
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("jwt")
+            },
+            data: {
+                data: {
+                    title: rtitle,
+                    datestart: rdatestart,
+                    dateend: rdateend,
+                    notes: ""
+                }
+            }
+        })
+        let created = window.localStorage.getItem("usercreated")
+        console.log(created);
+        if (created == null) {
+            window.localStorage.setItem("usercreated", 1);
+        } else {
+            window.localStorage.setItem("usercreated", parseInt(created, 10) + 1);
+        }
+    }
 
 
 
@@ -272,42 +288,25 @@ async function createEvent() {
 
 // }
 
-
-async function getEvent() {
+function getEventPageBySearch() {
     let name = $(this).text();
-
-    let jwt = window.localStorage.getItem("jwt");
-    let loggedin = window.localStorage.getItem("loggedin");
-    if (loggedin == "true") {
-        let results = await axios({
-            method: 'GET',
-            url: `http://localhost:3000/private/events/${name}`,
-            headers: {
-                "Authorization": "Bearer " + jwt
-            },
-        })
-
-        window.localStorage.setItem("title", name);
-        window.localStorage.setItem("desc", results.data.result.description);
-        window.location.replace("page.html");
-    } else {
-        let results = await axios({
-            method: 'GET',
-            url: `http://localhost:3000/public/events/${name}`,
-        })
-        window.localStorage.setItem("title", name);
-        window.localStorage.setItem("desc", results.data.result.description);
-
-        window.location.replace("page.html");
-
-    }
-
+    window.localStorage.setItem("title", name);
+    window.location.replace("page.html");
 }
 
-async function getEventPage() {
+function getEventPage() {
     let name = $(this).find("h2").text();
+    window.localStorage.setItem("title", name);
+    window.location.replace("page.html");
+}
+
+async function renderPage() {
+    let name = window.localStorage.getItem("title");
     let jwt = window.localStorage.getItem("jwt");
     let loggedin = window.localStorage.getItem("loggedin");
+    let target = $(".page-body");
+    let result = []
+    let months = ["", "Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     if (loggedin == "true") {
         let results = await axios({
             method: 'GET',
@@ -315,50 +314,57 @@ async function getEventPage() {
             headers: {
                 "Authorization": "Bearer " + jwt
             },
-        })
+        });
+        result = results.data.result;
+        target.find(".add").css("display", "block");
+        if (window.localStorage.getItem("usercreated") != null || window.localStorage.getItem("usercreated") != 0) {
+            let usercheck = await axios({
+                method: 'GET',
+                url: `http://localhost:3000/user/events/`,
+                headers: {
+                    "Authorization": "Bearer " + jwt
+                },
+            });
 
-        window.localStorage.setItem("title", name);
-        window.localStorage.setItem("desc", results.data.result.description);
-        window.localStorage.setItem("startdate", results.data.result.datestart);
-        window.localStorage.setItem("enddate", results.data.result.dateend);
-        window.localStorage.setItem("pic", results.data.result.image);
-        window.localStorage.setItem("addy", results.data.result.address);
+            let usercheckarr = usercheck.data.result;
+            for (let i = 0; i < usercheckarr.length; i++) {
+                if (usercheckarr[i] == name) {
+                    target.find(".add").css("display", "none");
+                }
+            }
+        }
+
+        // window.localStorage.setItem("title", name);
+        // window.localStorage.setItem("desc", results.data.result.description);
+        // window.localStorage.setItem("startdate", results.data.result.datestart);
+        // window.localStorage.setItem("enddate", results.data.result.dateend);
+        // window.localStorage.setItem("pic", results.data.image);
+        // window.localStorage.setItem("addy", results.data.address);
 
         window.location.replace("page.html");
     } else {
         let results = await axios({
             method: 'GET',
             url: `http://localhost:3000/public/events/${name}`,
-        })
-        window.localStorage.setItem("title", name);
-        window.localStorage.setItem("desc", results.data.result.description);
-        window.localStorage.setItem("startdate", results.data.result.datestart);
-        window.localStorage.setItem("enddate", results.data.result.dateend);
-        window.localStorage.setItem("pic", results.data.result.image);
-        window.localStorage.setItem("addy", results.data.result.address);
-        window.location.replace("page.html");
-
+        });
+        result = results.data.result;
+        target.find(".add").css("display", "none");
     }
 
-}
-
-function renderPage() {
-    let name = window.localStorage.getItem("title")
-    let addy = window.localStorage.getItem("addy")
-    let desc = window.localStorage.getItem("desc")
-    let start = window.localStorage.getItem("startdate")
-    let end = window.localStorage.getItem("enddate")
-    let pic = window.localStorage.getItem("pic")
-
-    $("#eventtitle").html(`${name}`)
-    $(".description").html(`${desc}`)
-    $(".address").html(`${addy}`)
-    $('#header').attr("src", `${pic}`);
-    let startF = moment(start).format('MMMM D, Y')
-    let endF = moment(end).format('MMMM D, Y')
-    $(".startdate").html(`${startF}`)
-    if (startF != endF) { $(".enddate").html(` - ${endF}`) }
-
+    let datestart = result.datestart.split("-");
+    let dateend = result.datestart.split("-");
+    let datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0] + " - " +
+        months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
+    target.find(".image-container").find("img").attr('src', result.image);
+    target.find(".image-container").find(".after").find("#eventtitle").text(result.title);
+    target.find(".image-container").find(".after").find(".datetitle").text(datestr);
+    target.find(".descriptioncontainer").find(".textdescription").text(result.description);
+    target.find(".descriptioncontainer").find(".textaddress").text(result.address);
+    let commentstr = ""
+    for (let i = 0; i < result.comments.length; i++) {
+        commentstr = commentstr + `<div class="comment">${result.comments[i]}</div>`;
+    }
+    target.find(".comments").find(".comments-container").replaceWith(`<div class="comments-container">${commentstr}</div>`);
 }
 
 async function renderEvents() {
@@ -486,19 +492,34 @@ function renderEdit() {
     console.log(name)
     $(".eventtitleinput").replaceWith(`<input type="text" class="eventtitleinput" value="${name}">`)
     $(".backgroundimage").replaceWith(`<input type="text" class="backgroundimage" value=${pic}>`)
-    $(".dateinput").replaceWith(`<div class="dateinput"><input type="date" class="datestart" value="${start}"> to <input type="date" class="dateend" value="${end}">
-    </div>`)
+    $(".dateinput").replaceWith(`<div class="dateinput"><input type="date" class="datestart" value="${start}"> to <input type="date" class="dateend" value="${end}"></div>`)
     $(".addressinput").replaceWith(`<input type="text" class="addressinput" placeholder="Where is your event? (Please input a valid address)" value="${addy}">`)
     $(".descriptioninput").replaceWith(`<input type="text" class="descriptioninput" placeholder="What would you like people to know about your event?" value="${desc}">`)
     if (p == "private") {
         $(".radiocontainer").replaceWith(`<div class="radiocontainer">
-            <input type="radio" class="radio" name="type" value="public">Public
-            <input type="radio" class="radio" name="type" value="private" checked>Private
-        </div>`)
+        <input type="radio" class="radio" name="type" value="public">Public
+        <input type="radio" class="radio" name="type" value="private" checked>Private
+    </div>`)
     }
-}
+    async function addMyEvent() {
+
+        function renderEdit() {
+            let name = window.localStorage.getItem("title")
+            let addy = window.localStorage.getItem("addy")
+            let desc = window.localStorage.getItem("desc")
+            let start = window.localStorage.getItem("startdate")
+            let end = window.localStorage.getItem("enddate")
+            let pic = window.localStorage.getItem("pic")
+            let p = window.localStorage.getItem("p")
+            console.log(name)
+            $(".eventtitleinput").replaceWith(`<input type="text" class="eventtitleinput" value="${name}">`)
+            $(".backgroundimage").replaceWith(`<input type="text" class="backgroundimage" value=${pic}>`)
+            $(".dateinput").replaceWith(`<div class="dateinput"><input type="date" class="datestart" value="${start}"> to <input type="date" class="dateend" value="${end}">
+    
+    }
 
 
+<<<<<<< HEAD
 window.onload = function () {
     $(document).on("click", ".newuser", loadCreateAccount);
     $(document).on("click", ".createaccount", createAccount);
@@ -523,9 +544,39 @@ window.onload = function () {
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {
         $(".login").replaceWith('<a class="account button" href="calendar.html">ACCOUNT</a>');
-        $(".neweventdiv").replaceWith(`<div class="neweventdiv"><a class="newevent button" href="newevent.html">CREATE EVENT</a></div>`);
+        $(".neweventdiv").replaceWith(`< div class= "neweventdiv" > <a class="newevent button" href="newevent.html">CREATE EVENT</a></div > `);
     } else {
         $(".account").replaceWith('<a class="login button" href="login.html">LOGIN</a>')
-        $(".neweventdiv").replaceWith(`<div class="neweventdiv"></div>`);
+        $(".neweventdiv").replaceWith(`< div class= "neweventdiv" ></div > `);
     }
 }
+=======
+    window.onload = function () {
+        $(document).on("click", ".newuser", loadCreateAccount);
+        $(document).on("click", ".createaccount", createAccount);
+        $(document).on("click", ".backtologin", backtoLogin);
+        $(document).on("click", ".loginsubmit", login);
+        $(document).on("click", "#signintitle", checkLoggedIn);
+        $(document).on("click", ".logout", logout);
+        $(document).on("click", ".newevent", createEvent);
+        $(document).on("input", ".searchevents", searchevents);
+        $(document).on("click", "li", getEventPageBySearch);
+        $(document).on("click", ".event", getEventPage);
+        $(document).on("click", ".edit", getEditPage)
+        if (top.location.pathname === '/page.html') {
+            renderPage()
+        }
+        renderEvents()
+        renderEdit()
+        checkLoggedIn();
+        console.log(window.localStorage.getItem("usercreated"));
+        let loggedin = window.localStorage.getItem("loggedin");
+        if (loggedin == "true") {
+            $(".login").replaceWith('<a class="account button" href="myevents.html">ACCOUNT</a>');
+            $(".neweventdiv").replaceWith(`< div class= "neweventdiv" > <a class="newevent button" href="newevent.html">CREATE EVENT</a></div > `);
+        } else {
+            $(".account").replaceWith('<a class="login button" href="login.html">LOGIN</a>')
+            $(".neweventdiv").replaceWith(`< div class= "neweventdiv" ></div > `);
+        }
+    }
+>>>>>>> b5b608ad171defd1b4a62060ff8b525a90ff7249

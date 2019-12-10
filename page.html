@@ -19,20 +19,23 @@
             <a class="home button" href="index.html">HOME</a>
             <a class="login button" href="login.html">LOGIN</a>
             <h1 id="eventtitle"></h1>
-            <p class="datetitle"><span class="startdate"></span><span class=enddate></span></p>
+            <p class="datetitle"></p>
             <div class="rectangle"></div>
             <a class="edit button">UPDATE EVENT</a>
         </div>
     </div>
     <div class="descriptioncontainer">
-        <div class="description">Description:</div>
-        <p class="text"></p>
+        <h3 class="description"><b>Description:</b></h3>
+        <p class="textdescription"></p>
+        <h3 class="address"><b>Address:</b></h3>
+        <p class="textaddress"></p>
         <!-- <div class="tags"></div> -->
         <p class="date"></p>
     </div>
     <div class="addresscontainer">
         <p class="address"></p>
     </div>
+    <button class="add button">ADD TO MY EVENTS</button>
     <hr>
     <div class="comments">
         <h3>COMMENTS</h3>
@@ -40,9 +43,7 @@
             <input type="text" class="comminput" placeholder="Type your comment here"><br>
             <input type="submit" value="POST" class="submit">
         </form>
-        <!-- <div class="comment">I love the state fair!
-        </div>
-        <div class="comment">Already bought my tickets.</div> -->
+        <div class="comments-container"></div>
     </div>
 
     <script type="module" src="App.js"></script>
