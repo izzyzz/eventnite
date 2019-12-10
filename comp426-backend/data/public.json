@@ -1,21 +1,12 @@
 {
-    "events": {
-        "NC State Fair": {
-            "description": "State fair",
-            "date": "December 1st, 2019"
-        },
-        "Izzy's Birthday Party": {
-            "description": "Bday party",
-            "date": "May 4th, 2019"
-        },
-        "Public event 1": {
-            "description": "Fun event",
-            "date": "December 3st, 2019"
-        },
-        "Public event 2": {
-            "description": "Fun event 2",
-            "date": "December 5st, 2019"
-        },
-    },
-
+  "events": {
+    "title": "r",
+    "datestart": "1999-12-12",
+    "dateend": "1999-12-12",
+    "image": "r",
+    "address": "hi",
+    "description": "hi",
+    "p": "public",
+    "comments": []
+  }
 }
