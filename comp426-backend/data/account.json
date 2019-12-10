@@ -6,11 +6,11 @@
         "usercreated": 1
       }
     },
-    "bye": {
-      "passwordHash": "$2a$10$AHnjLZGzDMhMqGLCSLRYXuxu7orOp9jO6gvcMIB10eW7Nkn23p0Y.",
+    "hoss": {
+      "passwordHash": "$2a$10$t8G21MCP1jRiJ4SHmOdqluluYHLK3g2uii/fK6SLDZnvfX3D/jchi",
       "data": {
         "usercreated": 0
       }
-    },
+    }
   }
 }

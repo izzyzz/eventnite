@@ -45,7 +45,9 @@ async function createAccount() {
                 data: {
                     name: uname,
                     pass: pwd,
-                    usercreated: 0
+                    data: {
+                        usercreated: 0
+                    }
                 }
             });
 
