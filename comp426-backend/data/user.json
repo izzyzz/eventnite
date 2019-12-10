@@ -1,1 +1,13 @@
-{}
+{
+  "hannah": {
+    "events": {
+      "COMP 426 Final": {
+        "title": "COMP 426 Final",
+        "created": true,
+        "datestart": "2019-12-12",
+        "dateend": "2019-12-12",
+        "notes": "Gotta remember to do the video and the poster"
+      }
+    }
+  }
+}

@@ -1,3 +1,27 @@
 {
-  "users": {}
+  "users": {
+    "hannah": {
+      "passwordHash": "$2a$10$aqEXwTTCtPWAKGI0DggRX.RpGYSc6wWFjRNDVhaZPmJ4MY/kna15a",
+      "data": {
+        "usercreated": 1
+      }
+    },
+    "izzy": {
+      "passwordHash": "$2a$10$ZKq6y79G5gLfRXrSxWlTrOhaxdV7Vjo1mPK.KKsCJ5yMZYpqORGAa",
+      "data": {
+        "usercreated": 0
+      }
+    },
+    "hi": {
+      "data": {
+        "usercreated": 0
+      }
+    },
+    "bye": {
+      "passwordHash": "$2a$10$AHnjLZGzDMhMqGLCSLRYXuxu7orOp9jO6gvcMIB10eW7Nkn23p0Y.",
+      "data": {
+        "usercreated": 0
+      }
+    }
+  }
 }

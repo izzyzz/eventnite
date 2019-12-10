@@ -29,6 +29,7 @@ function backtoLogin() {
 
 function logout() {
     window.localStorage.removeItem("jwt");
+    window.localStorage.removeItem("uname");
 }
 
 async function createAccount() {
@@ -43,7 +44,8 @@ async function createAccount() {
                 url: "http://localhost:3000/account/create",
                 data: {
                     name: uname,
-                    pass: pwd
+                    pass: pwd,
+                    usercreated: 0
                 }
             });
 
@@ -82,12 +84,14 @@ async function login() {
         });
 
         window.localStorage.setItem("jwt", account.data.jwt);
+        window.localStorage.setItem("uname", uname);
         window.localStorage.setItem("loggedin", true);
         window.location.replace("index.html");
     } catch (e) {
         $(".alert").text("Incorrect Username or Password");
         $(".alert").css("display", "block");
     }
+
 
 }
 
@@ -268,13 +272,6 @@ async function createEvent() {
                 }
             }
         })
-        let created = window.localStorage.getItem("usercreated")
-        console.log(created);
-        if (created == null) {
-            window.localStorage.setItem("usercreated", 1);
-        } else {
-            window.localStorage.setItem("usercreated", parseInt(created, 10) + 1);
-        }
     }
     window.localStorage.setItem("title", rtitle);
     window.location.replace("page.html");
@@ -334,7 +331,16 @@ async function renderPage() {
         });
         result = results.data.result;
         target.find(".add").css("display", "block");
-        if (window.localStorage.getItem("usercreated") != null || window.localStorage.getItem("usercreated") != 0) {
+        let status = await axios({
+            method: 'GET',
+            url: "http://localhost:3000/account/status",
+            headers: {
+                "Authorization": "Bearer " + jwt
+            },
+        })
+        let created = status.data.user.data.usercreated;
+        console.log(created);
+        if (created != "0") {
             let usercheck = await axios({
                 method: 'GET',
                 url: `http://localhost:3000/user/events`,
@@ -628,17 +634,41 @@ async function addMyEvent() {
             }
         })
     }
+    let status = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/account/status",
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
+    let created = status.data.user.data.usercreated;
+    let update = await axios({
+        method: 'POST',
+        url: `http://localhost:3000/account/users`,
+        data: {
+            name: window.localStorage.getItem("uname"),
+            data: {
 
-    let created = window.localStorage.getItem("usercreated");
-    if (created == null) {
-        window.localStorage.setItem("usercreated", 1);
-    } else {
-        window.localStorage.setItem("usercreated", parseInt(created, 10) + 1);
-    }
+                usercreated: parseInt(created, 10) + 1
+            }
+        },
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
+
 }
 
 async function renderMyEvents() {
-    if (window.localStorage.getItem("usercreated") != 0 || window.localStorage.getItem("usercreated") != null) {
+    let status = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/account/status",
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
+    let created = status.data.user.data.usercreated;
+    if (created != 0) {
         let myevents = await axios({
             method: 'GET',
             url: `http://localhost:3000/user/events`,
@@ -700,7 +730,7 @@ async function renderEdit() {
 function renderEditNotes() {
     let target = $(this).parent();
     let text = $(this).parent().find("p").text();
-    target.replaceWith(`<div class="event-notes"><textarea class=${text}>${text}</textarea><br><button class="submitedit button">EDIT</button><button class="canceledit button">CANCEL</<button></div>`)
+    target.replaceWith(`<div class="event-notes"><textarea class=${text}>${text}</textarea><br><button class="submitedit button">SAVE</button><button class="canceledit button">CANCEL</<button></div>`)
 }
 
 function renderCancelEdit() {
@@ -741,8 +771,28 @@ async function deleteMine() {
     });
     target.remove(this);
 
-    let created = window.localStorage.getItem("usercreated");
-    window.localStorage.setItem("usercreated", parseInt(created, 10) - 1);
+    let status = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/account/status",
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
+    let created = status.data.user.data.usercreated;
+    let update = await axios({
+        method: 'POST',
+        url: `http://localhost:3000/account/users`,
+        data: {
+            name: window.localStorage.getItem("uname"),
+            data: {
+
+                usercreated: parseInt(created, 10) - 1
+            }
+        },
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
 }
 
 async function deleteEvent() {
@@ -776,8 +826,28 @@ async function deleteEvent() {
             "Authorization": "Bearer " + jwt
         },
     });
-    let created = window.localStorage.getItem("usercreated");
-    window.localStorage.setItem("usercreated", parseInt(created, 10) - 1);
+    let status = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/account/status",
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
+    let created = status.data.user.data.usercreated;
+    let update = await axios({
+        method: 'POST',
+        url: `http://localhost:3000/account/users`,
+        data: {
+            name: window.localStorage.getItem("uname"),
+            data: {
+
+                usercreated: parseInt(created, 10) - 1
+            }
+        },
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
     window.location.replace("index.html");
 }
 
