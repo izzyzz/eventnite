@@ -274,9 +274,34 @@ async function createEvent() {
                 }
             }
         })
+        let status = await axios({
+            method: 'GET',
+            url: "http://localhost:3000/account/status",
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+            },
+        })
+        let created = status.data.user.data.usercreated;
+        let update = await axios({
+            method: 'POST',
+            url: `http://localhost:3000/account/users`,
+            data: {
+                name: window.localStorage.getItem("uname"),
+                data: {
+
+                    usercreated: parseInt(created, 10) + 1
+                }
+            },
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+            },
+        })
     }
+    console.log("bye");
     window.localStorage.setItem("title", rtitle);
+    console.log("hi");
     window.location.replace("page.html");
+
 
 }
 

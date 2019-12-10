@@ -1,1 +1,15 @@
-{}
+{
+  "users": {
+    "hannah": {
+      "passwordHash": "$2a$10$LejVEYiTMBINuQdmZ/KCxuwGSJDAlc3iyYcwJQHxu02n52k1LNj7K",
+      "data": {
+        "usercreated": 1
+      }
+    },
+    "izzy": {
+      "data": {
+        "usercreated": 4
+      }
+    }
+  }
+}
