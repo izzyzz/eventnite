@@ -42,6 +42,7 @@ hr {
 
 }
 
+
 .button,
 input[type="submit"] {
     background-color: #fc766aff;
@@ -125,6 +126,7 @@ h4 {
     background-color: #124653;
     gap: 40px;
     margin-top: 50px;
+    margin-bottom: 100px;
 }
 
 .container>.event {
@@ -145,7 +147,7 @@ h4 {
 }
 
 .event hr {
-    border: 0.2px solid #fc766aff;
+    border: 0.5px solid #fc766aff;
 }
 
 .event h2 {
@@ -432,4 +434,18 @@ h3 {
     height: 76%;
     padding: 15px 10px 0px 15px;
     
+}
+
+.editnotes, .removenotes {
+    float: right;
+    margin-right: 5px;
+    margin-top: 0px;
+}
+
+.event-notes p {
+    height: 67%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-right: 5px;
+    border: 1px solid #124653;
 }

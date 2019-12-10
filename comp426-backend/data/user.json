@@ -36,6 +36,12 @@
         "datestart": "2019-12-13",
         "dateend": "2019-12-14",
         "notes": ""
+      },
+      "Public Event 1": {
+        "title": "Public Event 1",
+        "datestart": "12-12-2021",
+        "dateend": "12-12-2021",
+        "notes": ""
       }
     }
   }
