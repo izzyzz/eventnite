@@ -197,113 +197,122 @@ async function createEvent() {
     let body = $(this).parent().parent();
     let rtitle = body.find('.title').find('.eventtitleinput').val();
     let rimage = container.find('.backgroundimage').val();
-    let rp = container.find('.radiocontainer').find("input[class='radio']:checked").val();
     let rdatestart = container.find('.datestart').val();
     let rdateend = container.find('.dateend').val();
     let raddress = container.find('.addressinput').val();
     let rdescription = container.find('.descriptioninput').val();
-
-    //if event is private it is only in private store
-    if (rp == "private" && window.localStorage.getItem("loggedin") == "true") {
-        let a = await axios({
-            method: 'POST',
-            url: `http://localhost:3000/private/events/${rtitle}`,
-            headers: {
-                "Authorization": "Bearer " + window.localStorage.getItem("jwt")
-            },
-            data: {
-                data: {
-                    title: rtitle,
-                    datestart: rdatestart,
-                    dateend: rdateend,
-                    image: rimage,
-                    address: raddress,
-                    description: rdescription,
-                    p: rp,
-                }
-            }
-        })
+    let rp;
+    if ($('.public').is(':checked')) {
+        rp = "public"
     } else {
-        //if event is public it is in both data stores
-        let b = await axios({
-            method: 'POST',
-            url: `http://localhost:3000/public/events/${rtitle}`,
-            data: {
-                data: {
-                    title: rtitle,
-                    datestart: rdatestart,
-                    dateend: rdateend,
-                    image: rimage,
-                    address: raddress,
-                    description: rdescription,
-                    p: rp,
-                }
-            }
-        });
-        let c = await axios({
-            method: 'POST',
-            url: `http://localhost:3000/private/events/${rtitle}`,
-            headers: {
-                "Authorization": "Bearer " + window.localStorage.getItem("jwt")
-            },
-            data: {
-                data: {
-                    title: rtitle,
-                    datestart: rdatestart,
-                    dateend: rdateend,
-                    image: rimage,
-                    address: raddress,
-                    description: rdescription,
-                    p: rp,
-                }
-            }
-        })
+        rp = "private"
     }
-    if (window.localStorage.getItem("loggedin") == "true") {
-        let d = await axios({
-            method: 'POST',
-            url: `http://localhost:3000/user/events/${rtitle}`,
-            headers: {
-                "Authorization": "Bearer " + window.localStorage.getItem("jwt")
-            },
-            data: {
-                data: {
-                    title: rtitle,
-                    created: true,
-                    datestart: rdatestart,
-                    dateend: rdateend,
-                    notes: ""
-                }
-            }
-        })
-        let status = await axios({
-            method: 'GET',
-            url: "http://localhost:3000/account/status",
-            headers: {
-                "Authorization": "Bearer " + window.localStorage.getItem('jwt')
-            },
-        })
-        let created = status.data.user.data.usercreated;
-        let update = await axios({
-            method: 'POST',
-            url: `http://localhost:3000/account/users`,
-            data: {
-                name: window.localStorage.getItem("uname"),
-                pass: window.localStorage.getItem("pass"),
-                data: {
 
-                    usercreated: parseInt(created, 10) + 1
+    if (rtitle == "" || rimage == "" || rp == "" || rdatestart == "" || rdateend == "" || raddress == "" || rdescription == "") {
+        $(".alert").text("Oh no! You seem to have left something blank, please try again.");
+        $(".alert").css("display", "block");
+    } else {
+
+        //if event is private it is only in private store
+        if (rp == "private" && window.localStorage.getItem("loggedin") == "true") {
+            let a = await axios({
+                method: 'POST',
+                url: `http://localhost:3000/private/events/${rtitle}`,
+                headers: {
+                    "Authorization": "Bearer " + window.localStorage.getItem("jwt")
+                },
+                data: {
+                    data: {
+                        title: rtitle,
+                        datestart: rdatestart,
+                        dateend: rdateend,
+                        image: rimage,
+                        address: raddress,
+                        description: rdescription,
+                        p: rp,
+                    }
                 }
-            },
-            headers: {
-                "Authorization": "Bearer " + window.localStorage.getItem('jwt')
-            },
-        })
+            })
+        } else {
+            //if event is public it is in both data stores
+            let b = await axios({
+                method: 'POST',
+                url: `http://localhost:3000/public/events/${rtitle}`,
+                data: {
+                    data: {
+                        title: rtitle,
+                        datestart: rdatestart,
+                        dateend: rdateend,
+                        image: rimage,
+                        address: raddress,
+                        description: rdescription,
+                        p: rp,
+                    }
+                }
+            });
+            let c = await axios({
+                method: 'POST',
+                url: `http://localhost:3000/private/events/${rtitle}`,
+                headers: {
+                    "Authorization": "Bearer " + window.localStorage.getItem("jwt")
+                },
+                data: {
+                    data: {
+                        title: rtitle,
+                        datestart: rdatestart,
+                        dateend: rdateend,
+                        image: rimage,
+                        address: raddress,
+                        description: rdescription,
+                        p: rp,
+                    }
+                }
+            })
+        }
+        if (window.localStorage.getItem("loggedin") == "true") {
+            let d = await axios({
+                method: 'POST',
+                url: `http://localhost:3000/user/events/${rtitle}`,
+                headers: {
+                    "Authorization": "Bearer " + window.localStorage.getItem("jwt")
+                },
+                data: {
+                    data: {
+                        title: rtitle,
+                        created: true,
+                        datestart: rdatestart,
+                        dateend: rdateend,
+                        notes: ""
+                    }
+                }
+            })
+            let status = await axios({
+                method: 'GET',
+                url: "http://localhost:3000/account/status",
+                headers: {
+                    "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+                },
+            })
+            let created = status.data.user.data.usercreated;
+            let update = await axios({
+                method: 'POST',
+                url: `http://localhost:3000/account/users`,
+                data: {
+                    name: window.localStorage.getItem("uname"),
+                    pass: window.localStorage.getItem("pass"),
+                    data: {
+
+                        usercreated: parseInt(created, 10) + 1
+                    }
+                },
+                headers: {
+                    "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+                },
+            })
+        }
+        window.localStorage.setItem("title", rtitle);
+        window.location.replace("page.html");
     }
-    window.localStorage.setItem("title", rtitle);
-    window.location.replace("page.html");
-
-
 }
 
 // function previewImage() {
@@ -399,11 +408,15 @@ async function renderPage() {
         result = results.data.result;
         target.find(".add").css("display", "none");
     }
-
+    let datestr;
     let datestart = result.datestart.split("-");
     let dateend = result.dateend.split("-");
-    let datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0] + " - " +
-        months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
+    if (result.datestart == result.dateend) {
+        datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0]
+    } else {
+        datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0] + " - " +
+            months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
+    }
     target.find(".image-container").find("img").attr('src', result.image);
     target.find(".image-container").find(".after").find("#eventtitle").text(result.title);
     target.find(".image-container").find(".after").find(".datetitle").text(datestr);
@@ -443,8 +456,13 @@ async function renderEvents() {
         results.data.result.forEach((result) => {
             let datestart = results2.data.result[result].datestart.split("-");
             let dateend = results2.data.result[result].dateend.split("-");
-            let datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0] + " - " +
-                months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
+            let datestr;
+            if (results2.data.result[result].datestart == results2.data.result[result].dateend) {
+                datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0]
+            } else {
+                datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0] + " - " +
+                    months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
+            }
             $(".container").append(`<div class="event">
             <div class=image style="background-image: url('${results2.data.result[result].image}')";></div>
             <h2 class="title">${result}</h2>
@@ -511,12 +529,11 @@ async function update() {
     } else {
         p = "private"
     }
-    let desc = $(".descriptioninput").val()
+    let desc = $(".descriptioninput").val();
     //updating public event => both stores
     //updating private event => private store
     //changing public to private => remove from public store
     //changing private to public => add to public store
-    console.log(p);
     if (p == "public" && window.localStorage.getItem("p") == "public") {
         let result = await axios({
             method: 'post',
@@ -638,8 +655,6 @@ async function update() {
 async function addMyEvent() {
     let rtitle = $(this).parent().find(".image-container").find(".after").find("#eventtitle").text();
     let date = $(this).parent().find(".image-container").find(".after").find(".datetitle").text();
-    let s = date.split(" - ")[0].split(" ");
-    let e = date.split(" - ")[1].split(" ");
     let months = {
         "Jan": 1,
         "Feb": 2,
@@ -654,8 +669,19 @@ async function addMyEvent() {
         "Nov": 11,
         "Dec": 12
     }
-    let start = s[2] + "-" + months[s[0]] + "-" + s[1].slice(0, s.length - 1);
-    let end = e[2] + "-" + months[e[0]] + "-" + e[1].slice(0, s.length - 1);
+    let start;
+    let end;
+    if (date.includes("-")) {
+        let s = date.split(" - ")[0].split(" ");
+        let e = date.split(" - ")[1].split(" ");
+        start = s[2] + "-" + months[s[0]] + "-" + s[1].slice(0, s.length - 1);
+        end = e[2] + "-" + months[e[0]] + "-" + e[1].slice(0, s.length - 1);
+    } else {
+        let s = date.split(" ");
+        start = s[2] + "-" + months[s[0]] + "-" + s[1].slice(0, s.length - 1);
+        end = start;
+    }
+
 
     if (window.localStorage.getItem("loggedin") == "true") {
         let d = await axios({
@@ -721,10 +747,17 @@ async function renderMyEvents() {
         let months = ["", "Jan", "Feb", "Mar", "Apr", "May", "June", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
         let keys = Object.keys(myevents.data.result)
         keys.forEach((event) => {
-            let datestart = myevents.data.result[event].datestart.split("-");
-            let dateend = myevents.data.result[event].dateend.split("-");
-            let datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0] + " - " +
-                months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
+            let datestr;
+            if (myevents.data.result[event].datestart == myevents.data.result[event].dateend) {
+                let datestart = myevents.data.result[event].datestart.split("-");
+                datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0];
+            } else {
+                let datestart = myevents.data.result[event].datestart.split("-");
+                let dateend = myevents.data.result[event].dateend.split("-");
+                datestr = months[parseInt(datestart[1], 10)] + " " + datestart[2] + ", " + datestart[0] + " - " +
+                    months[parseInt(dateend[1], 10)] + " " + dateend[2] + ", " + dateend[0];
+            }
+
             if (myevents.data.result[event].created == true) {
                 appendstr = appendstr + `<div class="event-card">
                 <div class="event-head"><b>${myevents.data.result[event].title}</b>:  ${datestr}</div>
@@ -757,7 +790,7 @@ async function renderEdit() {
     $(".backgroundimage").replaceWith(`<input type="text" class="backgroundimage" value=${results.data.result.image}>`)
     $(".dateinput").replaceWith(`<div class="dateinput"><input type="date" class="datestart" value="${results.data.result.datestart}"> to <input type="date" class="dateend" value="${results.data.result.dateend}"></div>`)
     $(".addressinput").replaceWith(`<input type="text" class="addressinput" placeholder="Where is your event? (Please input a valid address)" value="${results.data.result.address}">`)
-    $(".descriptioninput").replaceWith(`<input type="text" class="descriptioninput" placeholder="What would you like people to know about your event?" value="${results.data.result.description}">`)
+    $(".descriptioninput").replaceWith(`<textarea class="descriptioninput" placeholder="What time is your event? What would you like people to know about your event?" value="${results.data.result.description}"></textarea>`)
     if (results.data.result.p == "private") {
         $(".radiocontainer").replaceWith(`<div class="radiocontainer">
         <input type="radio" class="radio" name="type" value="public">Public
@@ -765,6 +798,7 @@ async function renderEdit() {
     </div>`)
     }
     window.localStorage.setItem("p", results.data.result.p);
+    console.log(window.localStorage.getItem("p"));
 }
 
 function renderEditNotes() {

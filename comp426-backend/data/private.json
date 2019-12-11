@@ -6,7 +6,7 @@
       "dateend": "2019-12-12",
       "image": "https://study.com/cimages/multimages/16/adobestock_189184966.jpeg",
       "address": "250 Bell Tower Drive Chapel Hill, NC 27599 United States",
-      "description": "COMP 426 Final Presentations 4p-7p Genome 100",
+      "description": "COMP 426 Final Presentations 4p-7p Genome 1",
       "p": "private"
     },
     "Public Picnic": {
@@ -53,6 +53,33 @@
       "address": "Chapel Hill, NC",
       "description": "Bring $5 !!!",
       "p": "private"
+    },
+    "Chinese Lantern Festival": {
+      "title": "Chinese Lantern Festival",
+      "datestart": "2019-11-22",
+      "dateend": "2020-01-12",
+      "image": "https://billypenn.com/wp-content/uploads/2019/05/chineselanternfest-1024x576.jpg",
+      "address": "Koka Booth Amphitheatre 8003 Regency Pkwy, Cary, NC",
+      "description": "Koka Booth Amphitheatre will once again be transformed into a magnificent setting with the return of the North Carolina Chinese Lantern Festival and all new lanterns! ",
+      "p": "public"
+    },
+    "Carolina Inn Holiday Market": {
+      "title": "Carolina Inn Holiday Market",
+      "datestart": "2019-08-08",
+      "dateend": "2019-08-22",
+      "image": "https://assets.simpleviewinc.com/simpleview/image/fetch/c_fill,h_411,q_75,w_620/https://assets.simpleviewinc.com/simpleview/image/upload/crm/chapelhill/Holiday-Market_566f2c5f-5056-b3a8-49d3dd0082a87d54.jpg",
+      "address": "211 Pittsboro St, Chapel Hill, NC",
+      "description": "Don your Santa hat, bundle up your kids, and enjoy the holiday season at The Carolina Inn for three magical Sunday events in Chapel Hill on December 8th, 15th and 22nd. With vendors from all over the state, our market will be a wonderful place to shop for hand crafted yuletide gifts from chocolates, to jewelry, to garlands and ornaments. If you get hungry there will be plenty of goodies to choose from. We have an outstanding lineup of local food trucks and exceptional offerings from our own culinary team. You’ll be able to feast on everything from soft pretzels to pulled pork. Your sweet tooth won’t be disappointed either. Dig into some fried dough, donuts, or caramel apples. Better yet, cuddle up to the fire and enjoy some s’mores. Whether you want to relax with a hot chocolate or opt for something a little stronger like a mulled wine or a craft beer, you won’t want to miss the opportunity to soak up the atmosphere of the season.",
+      "p": "public"
+    },
+    "Chapel Hill Carborro Holiday Parade": {
+      "title": "Chapel Hill Carborro Holiday Parade",
+      "datestart": "2019-12-14",
+      "dateend": "2019-12-14",
+      "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F79791239%2F150096010494%2F1%2Foriginal.20191107-123138?w=800&auto=compress&rect=0%2C14%2C1200%2C600&s=e1bff385ee79e9bd10484f16e0cf2703",
+      "address": "Chapel Hill US Post Office, 179 East Franklin Street  Chapel Hill, NC 27514",
+      "description": "The Chapel Hill-Carrboro Holiday Parade is scheduled for Saturday, December 14, 2019 from 10:00 a.m. until approximately 12:00 noon.\nThe parade this year promises to be a celebration of our community and holiday spirit. We recommend that all entries show their holiday spirit, but please note that no one is allowed to come dressed as Santa.\nPlease select from the registration types that are listed when you click on the tickets button . You only need to register for one type of entry, the one that includes all that you will have participating in the parade.\nThe deadline for all registration is November 30, 2019 at 5:00 p.m. Please help us by getting your registration in prior to our deadline to assist in coordinating the lineup. Registrations received after November 30, 2019 at 5:00 p.m. may forfeit their participation and will be placed as space is available.\nYou will receive your marching order on a parade lineup card e-mailed to you by December 10. Lineup will begin at 8:00 a.m. on December 14, 2019 in front of the Morehead Planetarium. All units MUST be present by 9:30 a.m.\nPlease note that the parade will take place rain or shine or snow and no refunds will be given.\nMore parade information coming soon. https://www.facebook.com/events/451102162201773/",
+      "p": "public"
     }
   }
 }

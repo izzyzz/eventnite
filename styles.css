@@ -216,8 +216,10 @@ img {
     background-color: white;
     margin: 0px;
     margin-top: -2.4%;
-    height: 43%;
+    /* height: 43%; */
     margin-bottom: 3%;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .description, .address {

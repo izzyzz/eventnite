@@ -35,6 +35,13 @@
         "datestart": "2019-12-12",
         "dateend": "2019-12-12",
         "notes": "grab some for izzy"
+      },
+      "Carolina Inn Holiday Market": {
+        "title": "Carolina Inn Holiday Market",
+        "created": true,
+        "datestart": "2019-08-08",
+        "dateend": "2019-08-22",
+        "notes": ""
       }
     }
   },
@@ -64,6 +71,38 @@
         "datestart": "2019-12-12",
         "dateend": "2019-12-12",
         "notes": "Pick up Hannah"
+      },
+      "Chinese Lantern Festival": {
+        "title": "Chinese Lantern Festival",
+        "created": true,
+        "datestart": "2019-11-22",
+        "dateend": "2020-01-12",
+        "notes": ""
+      }
+    }
+  },
+  "izzy": {
+    "events": {
+      "Carolina Inn Holiday Market": {
+        "title": "Carolina Inn Holiday Market",
+        "created": false,
+        "datestart": "2019-8-08",
+        "dateend": "2019-8-22",
+        "notes": ""
+      },
+      "Public Picnic": {
+        "title": "Public Picnic",
+        "created": false,
+        "datestart": "2020-3-04",
+        "dateend": "2020-3-04",
+        "notes": ""
+      },
+      "Chapel Hill Carborro Holiday Parade": {
+        "title": "Chapel Hill Carborro Holiday Parade",
+        "created": true,
+        "datestart": "2019-12-14",
+        "dateend": "2019-12-14",
+        "notes": ""
       }
     }
   }

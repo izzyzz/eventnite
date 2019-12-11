@@ -1,9 +1,9 @@
 {
   "users": {
     "hannah": {
-      "passwordHash": "$2a$10$wxCMHBp0r9MbDHXlhmraV.hN0AwxPi/1E1H8VFy7Y3IsGJmJ3Jtbu",
+      "passwordHash": "$2a$10$C.WwI.lbvJrTCOiO/4OsteeWlcZHBqJlbjdYAeaHG9azKjY1D7n62",
       "data": {
-        "usercreated": 5
+        "usercreated": 6
       }
     },
     "hoss": {
@@ -13,9 +13,15 @@
       }
     },
     "new": {
-      "passwordHash": "$2a$10$dQPdlQRiRWIs7telphyFuOlfMIP8RZ1jAgpBquex3jmndXTUCrW72",
+      "passwordHash": "$2a$10$Om1X/Ha/3IhiBu83ky7ibOTML5f04GtIMpzONb5kbZsoBGq9uYyOK",
       "data": {
-        "usercreated": 1
+        "usercreated": 2
+      }
+    },
+    "izzy": {
+      "passwordHash": "$2a$10$pLtnMlS7rtqH/biWDDExc.G1YXaFML73X1vzNvz036TnqqBPga0S2",
+      "data": {
+        "usercreated": 3
       }
     }
   }
