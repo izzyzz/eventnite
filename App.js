@@ -508,7 +508,7 @@ async function update() {
     let img = $(".backgroundimage").val()
     let address = $(".addressinput").val()
     let p;
-    if ($('.radio').is(':checked')) {
+    if ($('.public').is(':checked')) {
         p = "public"
     } else {
         p = "private"
