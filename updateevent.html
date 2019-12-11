@@ -18,20 +18,23 @@
     <hr>
     <div class="createcontainer">
         <p class=>Upload a Cover Image for Your Event</p>
-        <input type="text" class="backgroundimage" placeholder="Please Input a Link to Your Image">
+        <input type="text" class="backgroundimage" placeholder="Please Input a Link to Your Image" required>
         <br>
         <p>Describe Your Event!</p>
         <div class="radiocontainer">
-            <input type="radio" class="radio" name="type" value="public" checked>Public
-            <input type="radio" class="radio" name="type" value="private">Private
+            <input type="radio" class="radio public" name="type" value="public" checked>Public
+            <input type="radio" class="radio private" name="type" value="private">Private
         </div>
         <br>
-        <div class="dateinput"><input type="date" class="datestart"> to <input type="date" class="dateend">
+        <div class="dateinput"><input type="date" class="datestart" required> to <input type="date" class="dateend"
+                required>
         </div>
         <br>
-        <input type="text" class="addressinput" placeholder="Where is your event? (Please input a valid address)">
+        <input type="text" class="addressinput" placeholder="Where is your event? (Please input a valid address)"
+            required>
         <br>
-        <input type="text" class="descriptioninput" placeholder="What would you like people to know about your event?">
+        <input type="text" class="descriptioninput"
+            placeholder="What time is your event? What would you like people to know about your event?" required>
         <br>
         <!-- <p>Choose Your Tags!</p>
         <div class="searchcontainer tagadd">

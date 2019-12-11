@@ -6,14 +6,14 @@
         "created": true,
         "datestart": "2019-12-12",
         "dateend": "2019-12-12",
-        "notes": "Remember to make the video and poster"
+        "notes": "Remember to bring poster"
       },
       "Public Picnic": {
         "title": "Public Picnic",
         "created": true,
         "datestart": "2020-03-04",
         "dateend": "2020-03-04",
-        "notes": ""
+        "notes": "Make some sandwiches to share!"
       },
       "Ice Skating": {
         "title": "Ice Skating",
@@ -27,7 +27,14 @@
         "created": true,
         "datestart": "2020-04-05",
         "dateend": "2020-04-06",
-        "notes": ""
+        "notes": "Bring notes"
+      },
+      "Ice Cream Social": {
+        "title": "Ice Cream Social",
+        "created": false,
+        "datestart": "2019-12-12",
+        "dateend": "2019-12-12",
+        "notes": "grab some for izzy"
       }
     }
   },
@@ -46,6 +53,17 @@
         "datestart": "2019-12-14",
         "dateend": "2019-12-15",
         "notes": ""
+      }
+    }
+  },
+  "new": {
+    "events": {
+      "Ice Cream Social": {
+        "title": "Ice Cream Social",
+        "created": true,
+        "datestart": "2019-12-12",
+        "dateend": "2019-12-12",
+        "notes": "Pick up Hannah"
       }
     }
   }

@@ -44,6 +44,15 @@
       "address": "Chapel Hill, NC",
       "description": "Celebrate the end of finals with game night!",
       "p": "public"
+    },
+    "Ice Cream Social": {
+      "title": "Ice Cream Social",
+      "datestart": "2019-12-12",
+      "dateend": "2019-12-12",
+      "image": "https://media.istockphoto.com/photos/women-keeping-cool-in-volterra-picture-id1077186606?k=6&m=1077186606&s=612x612&w=0&h=xWnlwNDbq6hPPLNiMxsXu2LR3LDeEEV8OKHSDJA5Hio=",
+      "address": "Chapel Hill, NC",
+      "description": "Bring $5 !!!",
+      "p": "public"
     }
   }
 }

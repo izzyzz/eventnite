@@ -508,7 +508,7 @@ async function update() {
     let img = $(".backgroundimage").val()
     let address = $(".addressinput").val()
     let p;
-    if ($('.public').is(':checked')) {
+    if ($('.radio').is(':checked')) {
         p = "public"
     } else {
         p = "private"
@@ -518,6 +518,7 @@ async function update() {
     //updating private event => private store
     //changing public to private => remove from public store
     //changing private to public => add to public store
+    console.log(p);
     if (p == "public" && window.localStorage.getItem("p") == "public") {
         let result = await axios({
             method: 'post',
@@ -774,10 +775,39 @@ function renderEditNotes() {
     target.replaceWith(`<div class="event-notes"><textarea class=${text}>${text}</textarea><br><button class="submitedit button">SAVE</button><button class="canceledit button">CANCEL</<button></div>`)
 }
 
-function renderCancelEdit() {
+async function renderCancelEdit() {
     let target = $(this).parent();
+    let name = $(this).parent().parent().find("b").text();
     let text = $(this).parent().find("textarea").attr("class");
-    target.replaceWith(`<div class="event-notes"><p>${text}</p><br><button class="removenotes button">REMOVE</button><button class="editnotes button">EDIT NOTES</<button></div>`)
+    let status = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/account/status",
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
+    let created = status.data.user.data.usercreated;
+    if (created != 0) {
+
+        let myevents = await axios({
+            method: 'GET',
+            url: `http://localhost:3000/user/events`,
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("jwt")
+            }
+        });
+        let keys = Object.keys(myevents.data.result)
+        keys.forEach((event) => {
+            if (myevents.data.result[event].title == name) {
+
+                if (myevents.data.result[event].created == true) {
+                    target.replaceWith(`<div class="event-notes"><p>${myevents.data.result[event].notes}</p><br><button class="editnotes button">EDIT NOTES</<button></div>`)
+                } else {
+                    target.replaceWith(`<div class="event-notes"><p>${myevents.data.result[event].notes}</p><br><button class="removenotes button">REMOVE</button><button class="editnotes button">EDIT NOTES</<button></div>`)
+                }
+            }
+        })
+    }
 }
 
 async function editNotes() {
@@ -795,7 +825,36 @@ async function editNotes() {
             "Authorization": "Bearer " + jwt
         },
     });
-    target.replaceWith(`<div class="event-notes"><p>${text}</p><br><button class="removenotes button">REMOVE</button><button class="editnotes button">EDIT NOTES</<button></div>`);
+
+    let status = await axios({
+        method: 'GET',
+        url: "http://localhost:3000/account/status",
+        headers: {
+            "Authorization": "Bearer " + window.localStorage.getItem('jwt')
+        },
+    })
+    let created = status.data.user.data.usercreated;
+    if (created != 0) {
+        let myevents = await axios({
+            method: 'GET',
+            url: `http://localhost:3000/user/events`,
+            headers: {
+                "Authorization": "Bearer " + window.localStorage.getItem("jwt")
+            }
+        });
+        let keys = Object.keys(myevents.data.result)
+        keys.forEach((event) => {
+            if (myevents.data.result[event].title == name) {
+
+                if (myevents.data.result[event].created == true) {
+                    target.replaceWith(`<div class="event-notes"><p>${text}</p><br><button class="editnotes button">EDIT NOTES</<button></div>`);
+                } else {
+                    target.replaceWith(`<div class="event-notes"><p>${text}</p><br><button class="removenotes button">REMOVE</button><button class="editnotes button">EDIT NOTES</<button></div>`);
+                }
+            }
+        })
+    }
+
 
 }
 
