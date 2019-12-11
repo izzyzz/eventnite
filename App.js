@@ -300,9 +300,7 @@ async function createEvent() {
             },
         })
     }
-    console.log("bye");
     window.localStorage.setItem("title", rtitle);
-    console.log("hi");
     window.location.replace("page.html");
 
 
@@ -995,7 +993,7 @@ window.onload = function () {
     let loggedin = window.localStorage.getItem("loggedin");
     if (loggedin == "true") {
         $(".login").replaceWith('<a class="account button" href="myevents.html">ACCOUNT</a>');
-        $(".neweventdiv").replaceWith(`<div class="neweventdiv"><a class="newevent button" href="newevent.html">CREATE EVENT</a></div>`);
+        $(".neweventdiv").replaceWith(`<div class="neweventdiv"><a class="neweventhome button" href="newevent.html">CREATE EVENT</a></div>`);
     } else {
         $(".account").replaceWith('<a class="login button" href="login.html">LOGIN</a>')
         $(".neweventdiv").replaceWith(`<div class="neweventdiv"></div>`);
