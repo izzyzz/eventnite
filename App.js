@@ -530,6 +530,7 @@ async function update() {
         p = "private"
     }
     let desc = $(".descriptioninput").val();
+    console.log(desc);
     //updating public event => both stores
     //updating private event => private store
     //changing public to private => remove from public store
@@ -790,7 +791,7 @@ async function renderEdit() {
     $(".backgroundimage").replaceWith(`<input type="text" class="backgroundimage" value=${results.data.result.image}>`)
     $(".dateinput").replaceWith(`<div class="dateinput"><input type="date" class="datestart" value="${results.data.result.datestart}"> to <input type="date" class="dateend" value="${results.data.result.dateend}"></div>`)
     $(".addressinput").replaceWith(`<input type="text" class="addressinput" placeholder="Where is your event? (Please input a valid address)" value="${results.data.result.address}">`)
-    $(".descriptioninput").replaceWith(`<textarea class="descriptioninput" placeholder="What time is your event? What would you like people to know about your event?" value="${results.data.result.description}"></textarea>`)
+    $(".descriptioninput").replaceWith(`<textarea class="descriptioninput" placeholder="What time is your event? What would you like people to know about your event?" >${results.data.result.description}</textarea>`)
     if (results.data.result.p == "private") {
         $(".radiocontainer").replaceWith(`<div class="radiocontainer">
         <input type="radio" class="radio" name="type" value="public">Public
@@ -896,7 +897,7 @@ async function deleteMine() {
     let jwt = window.localStorage.getItem("jwt");
     let result = await axios({
         method: 'DELETE',
-        url: 'http://localhost:3000/user/events/' + name,
+        url: 'http://localhost:3000/user/events/' + namte,
         headers: {
             "Authorization": "Bearer " + jwt
         },
