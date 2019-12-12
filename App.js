@@ -931,13 +931,13 @@ async function deleteMine() {
 async function deleteEvent() {
     let name = window.localStorage.getItem("title")
     let jwt = window.localStorage.getItem("jwt");
-    // let result = await axios({
-    //     method: 'DELETE',
-    //     url: 'http://localhost:3000/user/events/' + name,
-    //     headers: {
-    //         "Authorization": "Bearer " + jwt
-    //     },
-    // });
+    let result = await axios({
+        method: 'DELETE',
+        url: 'http://localhost:3000/user/events/' + name,
+        headers: {
+            "Authorization": "Bearer " + jwt
+        },
+    });
 
     let usercheck = await axios({
         method: 'GET',

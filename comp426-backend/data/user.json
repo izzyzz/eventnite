@@ -42,6 +42,13 @@
         "datestart": "2019-08-08",
         "dateend": "2019-08-22",
         "notes": ""
+      },
+      "poop with me 2019": {
+        "title": "poop with me 2019",
+        "created": false,
+        "datestart": "2019-12-14",
+        "dateend": "2019-12-14",
+        "notes": ""
       }
     }
   },
@@ -105,5 +112,8 @@
         "notes": ""
       }
     }
+  },
+  "poopoo": {
+    "events": {}
   }
 }
